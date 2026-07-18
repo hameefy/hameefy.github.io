@@ -303,6 +303,30 @@ p { margin: 0 0 1.15rem; }
 
 .project .links { font-family: var(--sans); font-size: 0.92rem; }
 
+/* ---------------- Artifacts ---------------- */
+
+.artifact-item {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--rule);
+}
+.artifact-item:last-child { border-bottom: 1px solid var(--rule); }
+
+.artifact-item h3 {
+  font-size: 1.15rem;
+  margin: 0 0 0.4rem;
+}
+
+.artifact-item .tag-row {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+
+.artifact-item .links { font-family: var(--sans); font-size: 0.92rem; }
+
 /* ---------------- Contact ---------------- */
 
 .contact-grid {
