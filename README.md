@@ -10,7 +10,8 @@ same six-page structure (Home, Publications, People, News, Projects, Contact).
 index.html          Home — bio, positions, education, service
 publications.html   All 38 publications (2015–2026), from your CV
 people.html         Students supervised, examinerships, collaborators
-news.html           Empty for now — see comment in the file for how to add items
+news.html           Index of the Computational Mathematics Research Digest
+news/               Permanent pages for individual weekly digest issues
 projects.html       CodeLaTeX, claude-latex-skill, outreach/video content
 contact.html        Emails, offices, ORCID/Scopus/WoS/Scholar, social links
 style.css           All styling (one shared stylesheet)
@@ -33,9 +34,8 @@ Everything on the site is now sourced from your CV (March 2026) or from things y
   button. If that changes later, just ask and I'll build a public-safe version.
 
 Smaller open items:
-- **news.html** is intentionally empty (you said no news for now). There's a commented template
-  in the file itself for when you're ready to add the first item — natural first entries would be
-  the October 2025 promotion/appointment or the January 2026 Sultan Qaboos University talk.
+- **news.html** now indexes the weekly Computational Mathematics Research Digest. Each issue has a
+  permanent, shareable page under `news/`, with newest issues displayed first.
 - **projects.html** — CodeLaTeX is marked "in development" with no public link, per your note that
   it's still under construction. Ask and I'll add a repo/demo link once it's ready to share.
 
@@ -75,8 +75,12 @@ authors/title/venue/link, and renumber every `<span class="pub-num">[N]</span>` 
 paper = highest number, shown first — the `reversed` attribute on the `<ol>` just controls the visual
 counting direction, so the numbers themselves still need to be right).
 
-**New student / news item / project** — copy the relevant block (`.person`, `.news-item`, or
-`.project`) in the corresponding page and edit the text. No other page needs to change.
+**New digest issue** — copy `news/digest-template.html`, rename it using
+`YYYY-MM-DD-computational-mathematics-digest.html`, replace the placeholders, and add a new
+`.digest-card` at the top of `news.html`. Update the previous issue's “Newer issue” navigation link.
+
+**New student / project** — copy the relevant `.person` or `.project` block in the corresponding
+page and edit the text. No other page needs to change.
 
 ## Custom domain (optional)
 
