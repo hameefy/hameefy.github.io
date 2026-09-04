@@ -2,7 +2,7 @@
 
 A minimal academic personal site, styled after
 [hayoungchoi-knu.github.io](https://hayoungchoi-knu.github.io/): plain HTML/CSS, no build step,
-same six-page structure (Home, Publications, People, News, Projects, Contact).
+expanded academic structure (Home, Publications, People, News, Math & AI, Projects, Artifacts, Contact).
 
 ## Files
 
@@ -12,6 +12,8 @@ publications.html   All 38 publications (2015–2026), from your CV
 people.html         Students supervised, examinerships, collaborators
 news.html           Index of the Computational Mathematics Research Digest
 news/               Permanent pages for individual weekly digest issues
+math-ai.html         Index of the weekly Mathematics & Artificial Intelligence Digest
+math-ai/             Permanent Math & AI issues plus the reusable issue template
 projects.html       CodeLaTeX, claude-latex-skill, outreach/video content
 contact.html        Emails, offices, ORCID/Scopus/WoS/Scholar, social links
 style.css           All styling (one shared stylesheet)
@@ -93,6 +95,24 @@ primary-source repositories. For every paper, include 2–4 author-attributed **
 bullets that distinguish theorem-backed results from empirical claims and retain important assumptions,
 baselines, metrics, and limitations. Publish fewer than five items instead of padding a weak week, and
 note target topics or named publishers that produced no strong eligible item.
+
+**Weekly Math & AI publication** — a separate scheduled digest publishes directly to `main` every
+Friday after the research briefing. It creates or updates
+`math-ai/YYYY-MM-DD-math-ai-digest.html`, adds exactly one newest-first card to `math-ai.html`,
+updates adjacent-issue navigation, and validates every changed internal link. The run is idempotent:
+rerunning the same date updates the existing issue and card instead of duplicating them.
+
+Each Math & AI issue covers substantive papers, research projects, benchmarks, and software relevant
+to mathematical reasoning, formal theorem proving, symbolic–numeric methods, scientific machine
+learning, differentiable programming, surrogate and operator learning, numerical optimization,
+numerical linear algebra, nonlinear equations, and scientific-code generation. Every item includes
+bullet-pointed **Primary contributions**, an evidence-strength assessment, limitations, reproducibility
+or code/data status, relevance to computational mathematics, and a specific “Read first” pointer.
+Weak weeks should contain fewer items rather than promotional filler.
+
+For a manual fallback, copy `math-ai/digest-template.html`, rename it
+`YYYY-MM-DD-math-ai-digest.html`, replace the placeholders, add a newest-first `.digest-card` to
+`math-ai.html`, and update adjacent-issue navigation.
 
 **New student / project** — copy the relevant `.person` or `.project` block in the corresponding
 page and edit the text. No other page needs to change.

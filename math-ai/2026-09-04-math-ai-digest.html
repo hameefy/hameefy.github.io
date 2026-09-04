@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathematics &amp; AI Digest — 4 September 2026</title>
+<meta name="description" content="Weekly Math and AI digest: theorem-prover robustness, differentiable physics solvers, sparse PINNs, and neural symbolic regression.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site-header"><div class="header-inner">
+  <p class="site-name"><a href="../index.html">Hassan Mohammad</a></p>
+  <nav class="site-nav" aria-label="Primary"><ul>
+    <li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li>
+    <li><a href="../people.html">People</a></li><li><a href="../news.html">News</a></li>
+    <li><a href="../math-ai.html" class="active">Math &amp; AI</a></li>
+    <li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+  </ul></nav>
+</div></header>
+
+<main class="digest-article">
+  <p class="eyebrow">Mathematics &amp; Artificial Intelligence · Issue 1</p>
+  <h1>Formal robustness and hybrid scientific solvers</h1>
+  <div class="article-meta">Published <time datetime="2026-09-04">4 September 2026</time> · Curated by Hassan Mohammad</div>
+  <p class="coverage">Coverage: substantive releases and revisions from 28 August–3 September 2026. Four developments met the editorial threshold. This was a stronger week for evaluation and hybrid scientific computing than for autonomous mathematical discovery.</p>
+
+  <section class="reading-order" aria-labelledby="reading-order-title">
+    <h2 id="reading-order-title">Reading order</h2>
+    <ol>
+      <li><a href="#mathadv">MathAdv</a> — strongest evaluation contribution.</li>
+      <li><a href="#pydosert">PyDoseRT Photon and Proton</a> — strongest scientific-computing application.</li>
+      <li><a href="#pi-sap">PI-SAP</a> — useful hypothesis with preliminary evidence.</li>
+      <li><a href="#nsr">Neural symbolic regression</a> — promising pipeline with limited validation.</li>
+    </ol>
+  </section>
+
+  <article class="paper-entry" id="mathadv">
+    <div class="entry-kicker">Benchmark · Strong evidence · Read first</div>
+    <h2>1. MathAdv: What Theorem Provers Know, Reason, Formalize, and Generalize</h2>
+    <p class="paper-byline"><strong>Jiaxin Yuan et al.</strong> · arXiv v2 · 28 August 2026 · <a href="https://arxiv.org/abs/2608.25449" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/margotyjx/MathAdv" target="_blank" rel="noopener">Code and data ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>MathAdv replaces a single proof-success score with separate tests of mathematical knowledge, informal reasoning, Lean proof construction, and robustness to equivalent reformulations. This makes it possible to locate whether failure comes from mathematics, reasoning, or formalization.</p>
+    <div class="result-claims">
+      <p><span class="paper-label">Primary contributions</span></p>
+      <ul>
+        <li>Introduces 321 expert-curated problems across 13 undergraduate and graduate domains; 298 have Lean 4 statements.</li>
+        <li>Adds multiple-choice knowledge probes, fill-in-the-blank reasoning tasks, and expert-crafted equivalent reformulations alongside formal proving.</li>
+        <li>Finds that formalization remains a major bottleneck and that performance varies sharply across mathematical domains.</li>
+        <li>Shows that natural-language hints can help general-purpose models while harming proof-specialized models.</li>
+        <li>Demonstrates substantial brittleness under mathematically equivalent reformulations, weakening claims based only on aggregate pass rates.</li>
+      </ul>
+    </div>
+    <p><span class="paper-label">Evidence and caution</span><br>The benchmark uses expert review, compiler-verifiable outputs, public evaluation scripts, and contrast-style reformulations. Its 321 problems are diagnostically valuable but still too small for broad claims about research-level mathematical competence; future training-set exposure may also reduce its value.</p>
+    <p><span class="paper-label">Read first</span><br>The benchmark-construction and human-in-the-loop formalization sections, followed by the cross-domain and reformulation-robustness results.</p>
+  </article>
+
+  <article class="paper-entry" id="pydosert">
+    <div class="entry-kicker">Research software · Moderate evidence</div>
+    <h2>2. PyDoseRT Photon and Proton: differentiable physics with learned correction</h2>
+    <p class="paper-byline"><strong>Attila Simkó, Lukas Zimmermann, Hermann Fuchs and Gerd Heilemann</strong> · arXiv · 1 September 2026 · <a href="https://arxiv.org/abs/2609.01085" target="_blank" rel="noopener">Photon paper ↗</a> · <a href="https://arxiv.org/abs/2609.01018" target="_blank" rel="noopener">Proton paper ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>These systems follow a credible hybrid pattern: retain an analytical numerical model, make it differentiable for calibration, and learn only a structured residual correction toward Monte Carlo accuracy.</p>
+    <div class="result-claims">
+      <p><span class="paper-label">Primary contributions</span></p>
+      <ul>
+        <li>Implements GPU pencil-beam dose engines in PyTorch while preserving physically motivated kernels and transport approximations.</li>
+        <li>The photon pipeline adds small learned fluence and heterogeneity priors plus a compact 1.36-million-parameter 3D residual U-Net.</li>
+        <li>Zero-initializes learned corrections so training begins from the analytical solution rather than an unconstrained neural prediction.</li>
+        <li>The proton engine retains a differentiable 3D execution path for gradient-based calibration before learned residual correction.</li>
+        <li>Reports local or preliminary challenge gamma pass rates of 99.12% for photon CT, 96.95% for photon MRI, and 98.30% for proton at 1%/1 mm.</li>
+      </ul>
+    </div>
+    <p><span class="paper-label">Evidence and caution</span><br>The design is technically coherent, but these are challenge reports using local or preliminary evaluation. Independent external validation, production-solver comparisons, and a public code release were not established in the papers.</p>
+    <p><span class="paper-label">Computational-mathematics relevance</span><br>The analytical-model-plus-residual pattern transfers naturally to reduced-order PDE models, approximate Jacobians, preconditioners, inverse problems, and surrogate correction.</p>
+  </article>
+
+  <article class="paper-entry" id="pi-sap">
+    <div class="entry-kicker">Scientific ML method · Preliminary evidence</div>
+    <h2>3. Physics-Informed Foresight Pruning for Sparse PINN Solvers of Nonlinear PDEs</h2>
+    <p class="paper-byline"><strong>Ahmad Ishaque Karimi, Uvini Balasuriya Mudiyanselage and Kookjin Lee</strong> · AI4S 2026 workshop submission · 26 August 2026 · <a href="https://arxiv.org/abs/2608.25564" target="_blank" rel="noopener">Paper ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>Output sensitivity alone can miss parameters whose main influence is transmitted through derivatives in the governing PDE. PI-SAP instead defines pruning saliency using sensitivity of the differential residual.</p>
+    <div class="result-claims">
+      <p><span class="paper-label">Primary contributions</span></p>
+      <ul>
+        <li>Extends spectrum-aware pruning at initialization from output-side dynamics to PDE-residual sensitivity.</li>
+        <li>Evaluates sparse PirateNet solvers on Gray–Scott, complex Ginzburg–Landau, Burgers, and linear convection equations.</li>
+        <li>Finds stronger preservation of Gray–Scott residual fidelity and competitive behavior at aggressive sparsity.</li>
+        <li>Shows that residual fidelity, solution accuracy, and kernel conditioning are distinct objectives.</li>
+        <li>Reports no uniformly best pruning criterion across equations or sparsity levels.</li>
+      </ul>
+    </div>
+    <p><span class="paper-label">Evidence and caution</span><br>This is a seven-page workshop paper with four PDE examples. Parameter sparsity also does not guarantee lower GPU wall time without hardware-aware sparse kernels.</p>
+  </article>
+
+  <article class="paper-entry" id="nsr">
+    <div class="entry-kicker">Symbolic discovery · Exploratory</div>
+    <h2>4. Neural Symbolic Regression Using Deep Learning and Sparse Modelling</h2>
+    <p class="paper-byline"><strong>Ravi Kumar U and Sumitra S</strong> · arXiv · 1 September 2026 · <a href="https://arxiv.org/abs/2609.01102" target="_blank" rel="noopener">Paper ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>The method treats a neural approximation as a noise-robust functional preconditioner, then applies sparse regression to recover a compact expression.</p>
+    <div class="result-claims">
+      <p><span class="paper-label">Primary contributions</span></p>
+      <ul>
+        <li>Proposes a decoupled pipeline combining interaction-aware neural smoothing with LASSO-based expression recovery.</li>
+        <li>Uses Ray Tune and ASHA for distributed hyperparameter selection.</li>
+        <li>Reports improved RMSE, noise robustness, and out-of-distribution prediction over SINDy and untuned neural baselines on Nguyen benchmarks.</li>
+        <li>Provides ablations for feature interactions, neural depth, and tuning choices.</li>
+      </ul>
+    </div>
+    <p><span class="paper-label">Evidence and caution</span><br>The Nguyen suite is synthetic and narrow; the comparison omits several strong modern symbolic-regression systems. Unequal tuning budgets may advantage the proposed method, and the abstract does not identify released code. Treat this as a hypothesis-generating study rather than established scalable equation discovery.</p>
+  </article>
+
+  <aside class="category-note"><strong>Signal versus hype.</strong> No release this week established autonomous research-level mathematical discovery. The clearest progress was better diagnosis of theorem-prover failure and the use of learning as a constrained component inside a physics-based computational pipeline.</aside>
+  <p class="editorial-note">Selection and commentary are editorial. Reported numerical results are claims made by the cited authors and are distinguished from independent validation.</p>
+  <nav class="digest-nav" aria-label="Math and AI digest issues"><span aria-current="page">Issue 1</span><a href="../math-ai.html">All Math &amp; AI issues</a><span>Latest issue</span></nav>
+</main>
+
+<footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer>
+</body>
+</html>
