@@ -79,6 +79,15 @@ counting direction, so the numbers themselves still need to be right).
 `YYYY-MM-DD-computational-mathematics-digest.html`, replace the placeholders, and add a new
 `.digest-card` at the top of `news.html`. Update the previous issue's “Newer issue” navigation link.
 
+Each weekly issue should contain a highly selective shortlist of roughly 5–8 papers, using the first
+online-publication date (including online-first articles). Cover numerical optimization, unconstrained
+optimization, nonlinear least squares, nonlinear equations, and optimization methods for neural
+networks and machine learning. Check Springer, Elsevier, Taylor & Francis, SIAM, Wiley, and strong
+primary-source repositories. For every paper, include 2–4 author-attributed **Main result claims**
+bullets that distinguish theorem-backed results from empirical claims and retain important assumptions,
+baselines, metrics, and limitations. Publish fewer than five items instead of padding a weak week, and
+note target topics or named publishers that produced no strong eligible item.
+
 **New student / project** — copy the relevant `.person` or `.project` block in the corresponding
 page and edit the text. No other page needs to change.
 
