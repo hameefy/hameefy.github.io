@@ -75,9 +75,15 @@ authors/title/venue/link, and renumber every `<span class="pub-num">[N]</span>` 
 paper = highest number, shown first — the `reversed` attribute on the `<ol>` just controls the visual
 counting direction, so the numbers themselves still need to be right).
 
-**New digest issue** — copy `news/digest-template.html`, rename it using
-`YYYY-MM-DD-computational-mathematics-digest.html`, replace the placeholders, and add a new
-`.digest-card` at the top of `news.html`. Update the previous issue's “Newer issue” navigation link.
+**Weekly digest publication** — the scheduled Computational Mathematics Digest publishes directly
+to the `main` branch every Friday. It creates or updates the date-named permanent issue, adds exactly
+one newest-first card to `news.html`, updates adjacent-issue navigation, and refetches changed files
+for validation. The date-based workflow is idempotent, so retrying the same run must not create a
+duplicate issue or card.
+
+For a manual fallback, copy `news/digest-template.html`, rename it
+`YYYY-MM-DD-computational-mathematics-digest.html`, replace the placeholders, add a new
+`.digest-card` at the top of `news.html`, and update the previous issue's “Newer issue” link.
 
 Each weekly issue should contain a highly selective shortlist of roughly 5–8 papers, using the first
 online-publication date (including online-first articles). Cover numerical optimization, unconstrained
