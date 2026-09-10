@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computational Mathematics Research Digest — 11 September 2026</title>
+<meta name="description" content="Research digest: BFGS counterexamples, Powell-style derivative-free optimization, inexact Newton-MR, scale-invariant neural-network optimization, fixed-point complexity, and accelerated gradient descent.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="../style.css"></head><body>
+<header class="site-header"><div class="header-inner"><p class="site-name"><a href="../index.html">Hassan Mohammad</a></p><nav class="site-nav" aria-label="Primary"><ul><li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li><li><a href="../people.html">People</a></li><li><a href="../news.html" class="active">News</a></li><li><a href="../math-ai.html">Math &amp; AI</a></li><li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li><li><a href="../contact.html">Contact</a></li></ul></nav></div></header>
+<main class="digest-article"><p class="eyebrow">Computational Mathematics Research Digest · Issue 5</p><h1>Weekly computational mathematics digest</h1>
+<div class="article-meta">Published <time datetime="2026-09-11">11 September 2026</time> · Curated by Hassan Mohammad</div>
+<p class="coverage">Coverage: first-online postings from 4–10 September 2026. Seven papers met the quality threshold, led by a broad BFGS-family counterexample and a complexity analysis of practical Powell-style derivative-free optimization.</p>
+
+<article class="paper-entry"><h2>1. Counterexamples for BFGS-type methods under arbitrary strong Wolfe constants</h2>
+<p class="paper-byline"><strong>Rui Diao</strong> · arXiv · 9 September 2026 · <a href="https://arxiv.org/abs/2609.09686" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>This resolves a central open question about whether realistic line-search parameters protect BFGS and related methods from nonconvergence on smooth nonconvex objectives. The construction is unusually broad: it covers full-memory and limited-memory BFGS, the positive Broyden family, and Hestenes–Stiefel CG.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li><strong>Theorem-backed:</strong> The author claims that for every (0&lt;c_1&lt;c_2&lt;1), a bounded-below (C^infty) function on (mathbb{R}^2) with Lipschitz gradient can make every method in the stated conjugacy class generate an infinite sequence with (|
+abla f(x_k)|=1).</li>
+<li><strong>Line search:</strong> The constructed steps are first local minimizers and simultaneously satisfy strong Wolfe, weak Wolfe, Armijo, and Goldstein conditions for the prescribed constants.</li>
+<li><strong>Scope:</strong> The class includes BFGS, L-BFGS with arbitrary memory, the positive Broyden family, and Hestenes–Stiefel CG; two dimensions are claimed to be minimal.</li>
+<li><strong>Verification:</strong> Section 6 and the companion Python package numerically check the trajectory and line-search metrics, but this remains a designed worst-case construction rather than evidence about typical problems.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>Theorem 1, then Sections 5.1–5.2 for parameter calibration and verification of all line-search conditions. Use Section 6 to audit the construction numerically.</p></article>
+
+<article class="paper-entry"><h2>2. Powell-Style Model-Based Derivative-Free Optimization with Complexity Guarantees</h2>
+<p class="paper-byline"><strong>Abraar Chaudhry, Katya Scheinberg and Scholar Sun</strong> · arXiv · 8 September 2026 · <a href="https://arxiv.org/abs/2609.09441" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>The paper narrows the long-standing gap between analyzable derivative-free trust-region schemes and the geometry management that makes Powell-style software effective. It is directly relevant when function evaluations dominate cost and derivatives are unavailable or unreliable.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li><strong>Methodology:</strong> The authors claim complexity guarantees for practical model-based trust-region variants that retain useful interpolation points and need only one or two new function evaluations per iteration.</li>
+<li><strong>Complexity:</strong> The full-space linear-interpolation method retains (O(n^2arepsilon^{-2}))-type evaluation complexity, while random (q)-dimensional subspaces recover nearly tight (O(narepsilon^{-2}))-type dependence under the stated assumptions.</li>
+<li><strong>Noisy evaluations:</strong> The analysis extends to bounded deterministic zeroth-order noise and quantifies the noise-dependent stationarity floor; Theorems 5.12–5.13 treat randomized subspaces.</li>
+<li><strong>Empirical:</strong> Section 6 reports that the theoretically supported implementation can match established Powell-style trust-region codes, although performance remains benchmark- and tuning-dependent.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>Section 4 and Theorem 4.1 for the geometry-correcting mechanism and its bounded model-improvement cost; then Theorems 5.12–5.13 and Section 6.2.</p></article>
+
+<article class="paper-entry"><h2>3. Primal-Dual Inexact Newton-MR for Nonconvex Optimization with Equality Constraints</h2>
+<p class="paper-byline"><strong>Oscar Smee and Fred Roosta</strong> · arXiv · 9 September 2026 · <a href="https://arxiv.org/abs/2609.09683" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>This is a substantial large-scale Newton/SQP contribution: Krylov solves handle indefinite Lagrangian curvature directly, detect negative curvature, and avoid forcing positive-definite regularization. The experiments include constrained nonlinear least squares and physics-informed neural networks.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li><strong>Algorithm:</strong> The authors propose direct and matrix-free indirect primal-dual Newton-MR variants using CR/LSMR-type inner iterations, inexact normal steps, and approximate null-space projections.</li>
+<li><strong>Complexity:</strong> They claim the first line-search SQP-type iteration bound simultaneously allowing inexact inner solves and nonconvex Lagrangian curvature; Algorithm 4 reaches an ((arepsilon_c,arepsilon_p))-stationary point in (O(1/min{arepsilon_c,arepsilon_p^2})) outer iterations under the paper’s assumptions.</li>
+<li><strong>Empirical:</strong> Against augmented-Lagrangian and SQP baselines, the reported constrained-NLS and Poisson-PINN tests favor the PDN variants; Table 2 gives the best reported (L_2) relative and (L_infty) PINN test errors.</li>
+<li><strong>Qualification:</strong> The guarantees require regularity and boundedness assumptions, and the headline experiments implement the direct rather than fully matrix-free variant.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>Table 1 and Algorithms 1–4 for the design; then the main complexity theorem in Section 4.2. For evidence, prioritize Sections 5.1–5.2 and Table 2.</p></article>
+
+<article class="paper-entry"><h2>4. When Does Scale-Invariant Optimization Become Unstable? An Exact Schedule Law with Weight Decay</h2>
+<p class="paper-byline"><strong>Hasan Amin, Wei-Kai Chang and Rajiv Khanna</strong> · arXiv · 8 September 2026 · <a href="https://arxiv.org/abs/2609.09116" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Normalization makes neural-network parameters effectively scale invariant, so nominal learning rates can obscure the actual optimization dynamics. This work isolates a scalar schedule–decay law that links weight decay, norm growth, and the effective learning rate.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li><strong>Exact dynamics:</strong> The authors derive a discrete-time scalar law separating schedule/decay forcing from geometric self-quenching and identify a sharp contraction–expansion boundary.</li>
+<li><strong>Instability:</strong> In the solved normalized-regression model, Proposition 3.6 proves the interior balance point is an unstable spiral source; Proposition 3.5 gives an exact period-two orbit.</li>
+<li><strong>Optimizer comparison:</strong> A homogeneous-optimizer framework predicts weaker self-quenching for adaptive methods than for nonadaptive ones.</li>
+<li><strong>Empirical:</strong> Experiments on MLPs, CNNs, and GPT-2 using MNIST, CIFAR, WikiText, and OpenWebText reportedly track the law closely, with performance peaking near the predicted boundary; this is mechanistic evidence, not a universal training prescription.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>The schedule law and switching boundary in Section 2, Propositions 3.5–3.6, then Figure 4 and Appendix E.1 for numerical validation and robustness checks.</p></article>
+
+<article class="paper-entry"><h2>5. Oracle Complexity of Stochastic Fixed-Point Equations with Nonexpansive Maps</h2>
+<p class="paper-byline"><strong>Jelena Diakonikolas, Cristóbal Guzmán and David Martínez-Rubio</strong> · arXiv · 8 September 2026 · <a href="https://arxiv.org/abs/2609.09524" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Fixed-point residuals unify nonlinear equations, monotone inclusions, and many learning/optimization algorithms. This paper gives nearly sharp stochastic-oracle costs in general normed spaces rather than only Euclidean geometry.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li><strong>Upper bound:</strong> Using recursive anchoring and robust mean estimation, the authors obtain high-probability residual guarantees for nonexpansive self-maps in spaces of weak Rademacher type (q&gt;1).</li>
+<li><strong>Type-2 rate:</strong> For (ell_p), (2le pleinfty), they claim (widetilde O(sigma^2arepsilon^{-3}+arepsilon^{-1})) stochastic-oracle complexity.</li>
+<li><strong>Lower bound:</strong> A near-matching high-dimensional (ell_infty) lower bound holds against randomized algorithms succeeding with constant probability, including sparse-noise settings.</li>
+<li><strong>Qualification:</strong> The endpoint (ell_1) is excluded under only the stated second-moment assumption, and the contribution is theoretical rather than experimentally benchmarked.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>Section 3 and Algorithm 2 for recursive anchoring, followed by the main upper-bound theorem on pages 7–8 and the (ell_infty) lower-bound section.</p></article>
+
+<article class="paper-entry"><h2>6. Silver Rate Is (Almost) Optimal for Gradient Descent Acceleration</h2>
+<p class="paper-byline"><strong>Yuhan Ye and Kaizhao Liu</strong> · arXiv · 8 September 2026 · <a href="https://arxiv.org/abs/2609.09152" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Long, predetermined nonnegative step schedules can accelerate plain gradient descent beyond the classical (1/n) rate. This paper nearly closes the remaining lower-bound gaps and identifies the best possible polynomial exponents for both fixed-horizon and anytime schedules.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li><strong>Non-anytime lower bound:</strong> Theorem 1.1 proves an exponent (p_{mathrm{sil}}=log_2(1+sqrt2)), up to a subpolynomial correction, matching the known silver-schedule upper bound.</li>
+<li><strong>Anytime lower bound:</strong> Theorem 1.2 shows every infinite nonnegative schedule has infinitely many horizons with the corresponding optimal anytime exponent, again up to subpolynomial factors.</li>
+<li><strong>Technique:</strong> The hard-function construction switches gradient directions between selected checkpoints; Lemma 3.9 supplies the core “silver inequality.”</li>
+<li><strong>Qualification:</strong> The result concerns predetermined nonnegative step sizes on smooth convex objectives, not adaptive line searches or momentum methods, and supplies no computational benchmark.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>Section 1.2 and Theorems 1.1–1.2, then Section 2’s technical overview and Lemma 3.9. Read Sections 3.2 and 4 only if you want the complete lower-bound machinery.</p></article>
+
+<article class="paper-entry"><h2>7. Convergence of a Randomized Newton Method in Nonconvex Optimization</h2>
+<p class="paper-byline"><strong>Edward Huynh and Björn Engquist</strong> · arXiv · 9 September 2026 · <a href="https://arxiv.org/abs/2609.10465" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>The method couples Newton steps with state-dependent Gaussian exploration, aiming for global rather than merely stationary-point convergence on a nonconvex landscape while recovering Newton-like local behavior.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li><strong>Global convergence:</strong> Theorem 2.15 claims almost-sure convergence from every initial point on a bounded periodic domain to the unique global minimizer.</li>
+<li><strong>Local rate:</strong> For noise exponent (alpha&gt;1), almost every path eventually converges quadratically; the proof combines finite-time basin entry with a shrinking quadratic tube.</li>
+<li><strong>Exploration:</strong> Lemma 2.6 gives a geometric tail bound for first entrance into the local basin.</li>
+<li><strong>Qualification:</strong> The analysis assumes a known normalized minimum value, a unique minimizer, compact periodic geometry, and local positive-definite Lipschitz Hessian; there are no numerical experiments.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>Iteration (2.2), Assumptions A1–A2, Lemmas 2.6 and 2.10, and Theorem 2.15. Remark 2.1 is essential for understanding the bounded-domain limitation.</p></article>
+
+<aside class="category-note"><strong>Coverage note.</strong> No strong, clearly on-scope research article first published online during 4–10 September was found from Springer, Elsevier, Taylor &amp; Francis, SIAM, or Wiley after checking their indexed new-online material. No dedicated general-purpose nonlinear-least-squares paper cleared the threshold; the Smee–Roosta paper nevertheless contains a substantive constrained-NLS experiment. The week’s strongest work was concentrated in optimization and stochastic fixed-point theory.</aside>
+<p class="editorial-note">Selection and commentary are editorial. “Main result claims” summarizes claims made by the papers’ authors and distinguishes theorem-backed statements from empirical evidence; it is not independent validation. First-online dates and bibliographic details link to primary sources.</p>
+<nav class="digest-nav" aria-label="Digest issues"><a href="2026-09-04-computational-mathematics-digest.html">← Issue 4</a><a href="../news.html">All issues</a><span aria-current="page">Latest issue</span></nav></main>
+<footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer></body></html>
