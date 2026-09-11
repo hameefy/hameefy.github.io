@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Computational Mathematics Research Digest — DATE</title>
-<meta name="description" content="Weekly digest of up to seven peer-reviewed papers from Springer Nature, Elsevier, Taylor &amp; Francis, SIAM, and Wiley, restricted to the approved optimization and nonlinear-equations keywords.">
+<meta name="description" content="Template for a two-track weekly Computational Mathematics Research Digest with peer-reviewed publisher articles and arXiv preprints.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -25,27 +25,48 @@
   <p class="eyebrow">Computational Mathematics Research Digest · Issue NUMBER</p>
   <h1>Weekly computational mathematics digest</h1>
   <div class="article-meta">Published <time datetime="YYYY-MM-DD">DATE</time> · Curated by Hassan Mohammad</div>
-  <p class="coverage">Coverage: REPLACE WITH FIRST-ONLINE DATE RANGE, SELECTION COUNT, AND SHORT EDITORIAL SUMMARY.</p>
+  <p class="coverage">Coverage: REPLACE WITH FIRST-ONLINE DATE RANGE, COUNTS FOR BOTH SECTIONS, AND SHORT EDITORIAL SUMMARY.</p>
 
-  <article class="paper-entry">
-    <h2>1. PAPER TITLE</h2>
-    <p class="paper-byline"><strong>FULL AUTHORS</strong> · JOURNAL · PUBLISHER · FIRST ONLINE DATE · DOI · <a href="PRIMARY-SOURCE-URL" target="_blank" rel="noopener">Primary source ↗</a></p>
-    <p><span class="paper-label">Matched keyword(s)</span><br>REPLACE WITH ONE OR MORE TERMS FROM THE APPROVED VOCABULARY.</p>
-    <p><span class="paper-label">Why it matters</span><br>REPLACE WITH EDITORIAL ASSESSMENT FOR A COMPUTATIONAL MATHEMATICS RESEARCHER.</p>
-    <div class="result-claims">
-      <p><span class="paper-label">Main result claims</span></p>
-      <ul>
-        <li><strong>Theory:</strong> STATE THE AUTHORS' PRINCIPAL THEOREM-BACKED CLAIM AND ITS ASSUMPTIONS.</li>
-        <li><strong>Complexity or convergence:</strong> STATE THE CLAIMED GUARANTEE, RATE, OR BOUND PRECISELY.</li>
-        <li><strong>Computational evidence:</strong> STATE THE AUTHORS' EMPIRICAL CLAIM WITH DATASETS, BASELINES, AND METRICS.</li>
-        <li><strong>Qualification:</strong> STATE A MATERIAL LIMITATION, SCOPE CONDITION, OR MISSING VALIDATION. REMOVE IF INAPPLICABLE.</li>
-      </ul>
-    </div>
-    <p><span class="paper-label">Read first</span><br>REPLACE WITH A SPECIFIC SECTION, THEOREM, ALGORITHM, EXPERIMENT, TABLE, OR RESULT.</p>
-  </article>
+  <section class="digest-section" aria-labelledby="peer-reviewed-heading">
+    <h2 id="peer-reviewed-heading" class="section-title">Peer-reviewed publications</h2>
+    <p class="section-intro">SELECT ZERO TO SEVEN QUALIFYING ARTICLES FIRST PUBLISHED ONLINE THIS WEEK FROM SPRINGER NATURE, ELSEVIER, TAYLOR &amp; FRANCIS, SIAM, AND WILEY. DO NOT PAD.</p>
 
-  <aside class="category-note"><strong>Coverage note.</strong> LIST COVERAGE FOR SPRINGER NATURE, ELSEVIER, TAYLOR &amp; FRANCIS, SIAM, AND WILEY; ALSO LIST APPROVED KEYWORDS WITH NO QUALIFYING PAPER.</aside>
-  <p class="editorial-note">Selection and commentary are editorial. “Main result claims” summarizes claims made by the paper’s authors and distinguishes theorem-backed statements from empirical evidence; it is not independent validation. First-online dates and bibliographic details link to primary sources.</p>
+    <article class="paper-entry">
+      <h3>1. PAPER TITLE</h3>
+      <p class="paper-byline"><strong>FULL AUTHORS</strong> · JOURNAL · PUBLISHER · FIRST ONLINE DATE · DOI · <a href="PUBLISHER-PRIMARY-SOURCE-URL" target="_blank" rel="noopener">Primary source ↗</a></p>
+      <p><span class="paper-label">Priority topics</span><br>LIST MATCHING OR CLOSELY RELATED PRIORITY TOPICS. THESE GUIDE RANKING; THEY ARE NOT EXCLUSION RULES.</p>
+      <p><span class="paper-label">Why it matters</span><br>EDITORIAL ASSESSMENT FOR A COMPUTATIONAL MATHEMATICS RESEARCHER.</p>
+      <div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+        <li><strong>Theory:</strong> ATTRIBUTE THE PRINCIPAL PROVED CLAIM AND ASSUMPTIONS TO THE AUTHORS.</li>
+        <li><strong>Complexity or convergence:</strong> STATE THE CLAIMED RATE, GUARANTEE, OR BOUND PRECISELY.</li>
+        <li><strong>Computational evidence:</strong> STATE EMPIRICAL CLAIMS WITH DATASETS, BASELINES, AND METRICS.</li>
+        <li><strong>Qualification:</strong> STATE A MATERIAL LIMITATION OR SCOPE CONDITION.</li>
+      </ul></div>
+      <p><span class="paper-label">Read first</span><br>SPECIFIC SECTION, THEOREM, ALGORITHM, EXPERIMENT, TABLE, OR RESULT.</p>
+    </article>
+  </section>
+
+  <section class="digest-section" aria-labelledby="arxiv-heading">
+    <h2 id="arxiv-heading" class="section-title">arXiv preprints</h2>
+    <p class="section-intro">SELECT A SEPARATE CONCISE SHORTLIST OF SUBSTANTIVE NEW ARXIV PREPRINTS. RANK INDEPENDENTLY; DO NOT COUNT THEM AGAINST THE SEVEN-PUBLISHER-PAPER CEILING.</p>
+
+    <article class="paper-entry">
+      <h3>1. PREPRINT TITLE</h3>
+      <p class="paper-byline"><strong>FULL AUTHORS</strong> · arXiv · FIRST POSTED DATE · <a href="ARXIV-ABS-URL" target="_blank" rel="noopener">Primary source ↗</a></p>
+      <p><span class="paper-label">Priority topics</span><br>LIST MATCHING OR CLOSELY RELATED PRIORITY TOPICS.</p>
+      <p><span class="paper-label">Why it matters</span><br>EDITORIAL ASSESSMENT FOR A COMPUTATIONAL MATHEMATICS RESEARCHER.</p>
+      <div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+        <li><strong>Theory:</strong> ATTRIBUTE THE PRINCIPAL PROVED CLAIM AND ASSUMPTIONS TO THE AUTHORS.</li>
+        <li><strong>Complexity or convergence:</strong> STATE THE CLAIMED RATE, GUARANTEE, OR BOUND PRECISELY.</li>
+        <li><strong>Computational evidence:</strong> STATE EMPIRICAL CLAIMS WITH DATASETS, BASELINES, AND METRICS.</li>
+        <li><strong>Qualification:</strong> STATE A MATERIAL LIMITATION OR SCOPE CONDITION.</li>
+      </ul></div>
+      <p><span class="paper-label">Read first</span><br>SPECIFIC SECTION, THEOREM, ALGORITHM, EXPERIMENT, TABLE, OR RESULT.</p>
+    </article>
+  </section>
+
+  <aside class="category-note"><strong>Coverage note.</strong> REPORT WHICH OF THE FIVE NAMED PUBLISHERS PRODUCED QUALIFYING ARTICLES, NOTE EMPTY PRIORITY TOPICS, AND EXPLAIN ANY SHORT SECTION WITHOUT PADDING.</aside>
+  <p class="editorial-note">Selection and commentary are editorial. “Main result claims” summarizes claims made by the papers’ authors and distinguishes theorem-backed statements from empirical evidence; it is not independent validation. First-online dates and bibliographic details link to primary sources.</p>
   <nav class="digest-nav" aria-label="Digest issues"><a href="../news.html">← Older issue</a><a href="../news.html">All issues</a><a href="../news.html">Newer issue →</a></nav>
 </main>
 <footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer>
