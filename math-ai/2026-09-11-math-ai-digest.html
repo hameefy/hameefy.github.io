@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathematics &amp; AI Digest — 11 September 2026</title>
+<meta name="description" content="Weekly Math and AI digest: stochastic-process theorem proving, observable ODE functions, federated PDE learning, PINN interpretability, and energy-based SciML.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site-header"><div class="header-inner">
+  <p class="site-name"><a href="../index.html">Hassan Mohammad</a></p>
+  <nav class="site-nav" aria-label="Primary"><ul>
+    <li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li>
+    <li><a href="../people.html">People</a></li><li><a href="../news.html">News</a></li>
+    <li><a href="../math-ai.html" class="active">Math &amp; AI</a></li>
+    <li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+  </ul></nav>
+</div></header>
+
+<main class="digest-article">
+  <p class="eyebrow">Mathematics &amp; Artificial Intelligence · Issue 2</p>
+  <h1>Formal stochastic reasoning and structure-aware scientific learning</h1>
+  <div class="article-meta">Published <time datetime="2026-09-11">11 September 2026</time> · Curated by Hassan Mohammad</div>
+  <p class="coverage">Coverage: substantive releases and revisions from 4–10 September 2026. Five items met the editorial threshold. The strongest signal came from sharper problem construction and structure-aware algorithms, not a general leap in autonomous mathematics.</p>
+
+  <section class="reading-order" aria-labelledby="reading-order-title">
+    <h2 id="reading-order-title">Reading order</h2>
+    <ol>
+      <li><a href="#stochbench">StochBench</a> — strongest formal-reasoning benchmark contribution.</li>
+      <li><a href="#observable-ode">Observable functions of rational ODE models</a> — strongest theorem-to-software contribution.</li>
+      <li><a href="#fed-pde">Solution-space heterogeneity in federated PDE learning</a> — strongest controlled SciML study.</li>
+      <li><a href="#physsae">PhysSAE</a> — careful interpretability experiment, but early evidence.</li>
+      <li><a href="#dem">Beyond Residuals</a> — useful variational synthesis rather than a decisive new solver.</li>
+    </ol>
+  </section>
+
+  <article class="paper-entry" id="stochbench">
+    <div class="entry-kicker">Benchmark · Strong contribution, moderate baseline evidence · Read first</div>
+    <h2>1. StochBench: A Domain-Specific Benchmark for Stochastic Processes in Lean</h2>
+    <p class="paper-byline"><strong>Idan Davidovich, Debargha Ganguly, Vikash Singh and Vipin Chaudhary</strong> · arXiv · 8 September 2026 · Benchmark and technical report · <a href="https://arxiv.org/abs/2609.09264" target="_blank" rel="noopener">Paper ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>Probability is a difficult test for formal mathematical agents because textbook arguments often suppress measurability, integrability, filtration, and stopping-time obligations. StochBench makes those obligations explicit and separates problems that map directly to Mathlib from those requiring substantial abstraction.</p>
+    <div class="result-claims">
+      <p><span class="paper-label">Primary contributions</span></p>
+      <ul>
+        <li>Introduces 450 Lean 4 targets paired with natural-language statements across eight graduate stochastic-process topics, from Markov chains and renewal theory to martingales, queues, Brownian motion, and stochastic calculus.</li>
+        <li>Classifies 114 problems as direct and 336 as abstracted; all benchmark-specific definitions and hypotheses were human-written, with LLM assistance used during formalization.</li>
+        <li>Reports 157 clean proofs from a single tool-using Claude Opus 4.8 run per problem under a 15-minute cap: 34.9% overall, 69.3% on direct targets, and 23.2% on abstracted targets.</li>
+        <li>Exposes sharp topic variation: 61.7% on martingales and stopping versus 4.9% on renewal theory and 17.8% on Brownian motion and stochastic calculus.</li>
+        <li>Checks for prohibited placeholders and admitted facts, making the baseline compiler-verifiable rather than judge-model graded.</li>
+      </ul>
+    </div>
+    <p><span class="paper-label">Evidence and caution</span><br>The formal targets and compiler checks are strong assets, and the direct/abstracted split is more revealing than an aggregate score. The baseline is narrow: one model family, one run, one tool budget, no confidence intervals, and no comparison with proof-specialized systems. The same broad model family assisted benchmark construction, which raises leakage and construction-bias questions. No independent validation was identified.</p>
+    <p><span class="paper-label">Read first</span><br>Table 1 and Sections 3–5: construction protocol, direct-versus-abstracted taxonomy, and the topic-level failure analysis.</p>
+  </article>
+
+  <article class="paper-entry" id="observable-ode">
+    <div class="entry-kicker">Symbolic computation and software · Strong algorithmic contribution</div>
+    <h2>2. Observable functions of rational ODE models and how to find them</h2>
+    <p class="paper-byline"><strong>Alexander Demin, Gleb Pogudin and Christopher Rackauckas</strong> · arXiv v2 · first published 5 September; revised 9 September 2026 · Paper and Julia software · <a href="https://arxiv.org/abs/2609.06134" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/SciML/StructuralIdentifiability.jl" target="_blank" rel="noopener">StructuralIdentifiability.jl ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>When an ODE model is not fully observable, researchers still need to know which combinations of states and parameters are recoverable from input–output data. Computing a concise generating set for that observation field turns a vague identifiability failure into actionable model structure.</p>
+    <div class="result-claims">
+      <p><span class="paper-label">Primary contributions</span></p>
+      <ul>
+        <li>Gives an algorithm for concise generators of the observation field of rational parametric ODE control models.</li>
+        <li>Derives two enabling results: observable functions can be extracted from coefficients of repeated output Lie derivatives, and identifiable parameter combinations can reduce the differentiation order required.</li>
+        <li>Combines differential elimination with rational-function-field simplification to control symbolic cost.</li>
+        <li>Implements the method as <code>find_identifiable_functions(..., with_states=true)</code> in the MIT-licensed StructuralIdentifiability.jl package.</li>
+        <li>Demonstrates interpretable generators on models from epidemiology, chemical kinetics, and cancer modeling.</li>
+      </ul>
+    </div>
+    <p><span class="paper-label">Evidence and caution</span><br>The public repository has documentation, examples, tests, and a mature package history, giving this item the best reproducibility path in the issue. The stated scope is rational dynamics with sufficiently informative inputs; expression swell and differential elimination can still limit scale. The paper's application studies are demonstrations rather than broad benchmark comparisons, and independent validation of the new routine is not yet established.</p>
+    <p><span class="paper-label">Read first</span><br>The two main extraction/order-reduction results, then the repository's <code>find_identifiable_functions</code> documentation and tests.</p>
+  </article>
+
+  <article class="paper-entry" id="fed-pde">
+    <div class="entry-kicker">Scientific ML methodology · Moderate-to-strong controlled evidence</div>
+    <h2>3. Solution-space heterogeneity shapes federated learning dynamics across partial differential equations</h2>
+    <p class="paper-byline"><strong>Ping Luo, Jiahuan Wang, Ziqing Wen, Tao Sun and Dongsheng Li</strong> · arXiv · 4 September 2026 · Research paper · <a href="https://arxiv.org/abs/2609.05012" target="_blank" rel="noopener">Paper ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>Federated neural-operator studies often define client heterogeneity through sampling labels rather than the geometry of PDE solutions. This work builds heterogeneity directly in solution space, making the induced optimization difficulty measurable and reproducible.</p>
+    <div class="result-claims">
+      <p><span class="paper-label">Primary contributions</span></p>
+      <ul>
+        <li>Introduces a solution-space PDE-Dirichlet allocation protocol and uses optimal transport to quantify the separation realized between clients.</li>
+        <li>Derives an inverse relationship between population allocation heterogeneity and the Dirichlet concentration parameter, plus conditions linking response heterogeneity to gradient disagreement, local-update dispersion, and parameter divergence.</li>
+        <li>Evaluates seven public PDE tasks, three neural-operator families, and five random seeds under controlled heterogeneity.</li>
+        <li>Finds that stronger heterogeneity reliably increases solution-space and optimization separation, while final prediction error remains equation- and regime-dependent.</li>
+        <li>Reports a worst highlighted increase of 4.157 percentage points for low-viscosity Burgers; communication and smoother dynamics can reduce final error gaps even when parameter trajectories diverge.</li>
+      </ul>
+    </div>
+    <p><span class="paper-label">Evidence and caution</span><br>The task/family/seed coverage and use of public PDE data are stronger than a one-equation demonstration. The protocol is still synthetic rather than derived from real institutional partitions, and author-reported results have no independent replication. No public code link was identified from the primary paper page, which limits immediate reproduction.</p>
+    <p><span class="paper-label">Read first</span><br>The protocol definition and theoretical link from solution heterogeneity to gradient disagreement, then the cross-PDE table comparing final error with optimization divergence.</p>
+  </article>
+
+  <article class="paper-entry" id="physsae">
+    <div class="entry-kicker">Mechanistic interpretability for PINNs · Preliminary but careful evidence</div>
+    <h2>4. PhysSAE: Mechanistic Interpretability with Sparse Autoencoders</h2>
+    <p class="paper-byline"><strong>Nandita N. Patil, Eshwar R. A. and Gajanan V. Honnavar</strong> · arXiv · 7 September 2026 · Research paper · <a href="https://arxiv.org/abs/2609.07061" target="_blank" rel="noopener">Paper ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>If latent directions in a PINN correspond to physical observables and interventions on those directions produce localized, structured changes, interpretability could become a diagnostic tool for scientific surrogates rather than a visualization exercise.</p>
+    <div class="result-claims">
+      <p><span class="paper-label">Primary contributions</span></p>
+      <ul>
+        <li>Fits overcomplete sparse autoencoders to penultimate-layer PINN activations and intervenes directly along learned dictionary directions.</li>
+        <li>Studies six PDE families with three PINN seeds and three SAE seeds per family.</li>
+        <li>Reports latent–observable alignments up to absolute Pearson correlation 0.951, compared with permutation nulls.</li>
+        <li>Finds top-aligned ablations 1.2–4.2 times more spatially concentrated than PCA or ICA interventions.</li>
+        <li>Shows that two-atom representations improve concept-regression R² by 0.05–0.15 for bilateral concepts, while random pairs can reduce it by as much as 0.60.</li>
+      </ul>
+    </div>
+    <p><span class="paper-label">Evidence and caution</span><br>Multiple seeds, permutation nulls, PCA/ICA baselines, and matched random controls are good practice. Correlation and localized intervention do not by themselves identify a unique physical mechanism; SAE dictionaries are non-identifiable and the tested PINNs/PDEs remain limited. No public code was identified and there is no independent replication.</p>
+    <p><span class="paper-label">Read first</span><br>The causal-intervention definition and the experiments comparing intervention concentration against PCA, ICA, and matched random controls.</p>
+  </article>
+
+  <article class="paper-entry" id="dem">
+    <div class="entry-kicker">Variational scientific ML · Methodological synthesis, moderate evidence</div>
+    <h2>5. Beyond Residuals: Energy based solutions of partial differential equations using scientific machine learning</h2>
+    <p class="paper-byline"><strong>Timon Rabczuk and Yizheng Wang</strong> · arXiv · 8 September 2026 · Technical paper · <a href="https://arxiv.org/abs/2609.08239" target="_blank" rel="noopener">Paper ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>For PDEs with a valid variational principle, minimizing energy can avoid high-order residual derivatives and awkward loss balancing. The paper is most useful as a decision guide for when Deep Energy Methods are mathematically preferable to strong-form PINNs.</p>
+    <div class="result-claims">
+      <p><span class="paper-label">Primary contributions</span></p>
+      <ul>
+        <li>Systematically contrasts energy minimization with strong-form PINNs and weak/variational PINNs.</li>
+        <li>Explains how boundary conditions and constitutive constraints can be incorporated through the trial space or incremental potential.</li>
+        <li>Frames nonlinear, history-dependent, and dissipative problems—including phase-field fracture—through variational or incremental energies.</li>
+        <li>Connects the formulation to inverse problems and optimization while illustrating the discussion with numerical examples.</li>
+      </ul>
+    </div>
+    <p><span class="paper-label">Evidence and caution</span><br>This is valuable synthesis, not evidence of a uniformly superior solver. Energy methods require an appropriate variational structure; nonconvex energies can introduce difficult optimization landscapes, and numerical examples do not replace standardized comparisons on accuracy, cost, mesh/architecture sensitivity, and failure modes. No public code or independent validation was identified.</p>
+    <p><span class="paper-label">Read first</span><br>The formulation comparing residual and energy objectives, then the section on incremental potentials for dissipative and path-dependent systems.</p>
+  </article>
+
+  <aside class="category-note"><strong>Signal versus hype.</strong> This week supports two narrow conclusions: formal-mathematics evaluation is becoming more domain-aware, and scientific-learning methods improve when their partitions, latent interventions, or objectives reflect mathematical structure. It does not establish robust graduate-level stochastic proving, mechanistic understanding inside PINNs, or universal superiority of learned PDE solvers. Only the ODE observability item currently offers a mature, inspectable software path.</aside>
+  <p class="editorial-note">Selection and commentary are editorial. Reported numerical results are claims made by the cited authors and are distinguished from independent validation.</p>
+  <nav class="digest-nav" aria-label="Math and AI digest issues"><a href="2026-09-04-math-ai-digest.html">← Previous issue</a><a href="../math-ai.html">All Math &amp; AI issues</a><span aria-current="page">Latest issue</span></nav>
+</main>
+
+<footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer>
+</body>
+</html>
