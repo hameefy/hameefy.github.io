@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Computational Mathematics Research Digest — 11 September 2026</title>
-<meta name="description" content="Research digest: BFGS counterexamples, Powell-style derivative-free optimization, inexact Newton-MR, scale-invariant neural-network optimization, fixed-point complexity, and accelerated gradient descent.">
+<meta name="description" content="Weekly computational mathematics digest with separate peer-reviewed publisher and arXiv sections, covering stochastic gradient convergence, nonlinear-model identification, BFGS counterexamples, derivative-free optimization, and Newton-MR.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="../style.css"></head><body>
 <header class="site-header"><div class="header-inner"><p class="site-name"><a href="../index.html">Hassan Mohammad</a></p><nav class="site-nav" aria-label="Primary"><ul><li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li><li><a href="../people.html">People</a></li><li><a href="../news.html" class="active">News</a></li><li><a href="../math-ai.html">Math &amp; AI</a></li><li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li><li><a href="../contact.html">Contact</a></li></ul></nav></div></header>
 <main class="digest-article"><p class="eyebrow">Computational Mathematics Research Digest · Issue 5</p><h1>Weekly computational mathematics digest</h1>
 <div class="article-meta">Published <time datetime="2026-09-11">11 September 2026</time> · Curated by Hassan Mohammad</div>
-<p class="coverage">Coverage: first-online postings from 4–10 September 2026. Seven papers met the quality threshold, led by a broad BFGS-family counterexample and a complexity analysis of practical Powell-style derivative-free optimization.</p>
+<p class="coverage">Coverage: first-online publications and preprints from 4–10 September 2026. This revised two-track issue contains two qualifying peer-reviewed publisher articles and seven separately curated arXiv preprints.</p>\n\n<section class="digest-section" aria-labelledby="peer-reviewed-heading">
+<h2 id="peer-reviewed-heading" class="section-title">Peer-reviewed publications</h2>
+<p class="section-intro">Two publisher articles met the methodological and computational threshold this week. The seven-paper publisher allowance is a ceiling, not a quota.</p>
+
+<article class="paper-entry"><h3>1. On convergence rates of stochastic gradient descent for linear inverse problems</h3>
+<p class="paper-byline"><strong>Qinian Jin, Xiliang Lu and Lin Tian</strong> · <em>Numerische Mathematik</em> · Springer Nature · First published online 8 September 2026 · DOI: 10.1007/s00211-026-01568-w · <a href="https://link.springer.com/article/10.1007/s00211-026-01568-w" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Gradient methods · rate of convergence · nonlinear least-squares structure · signal processing and inverse problems</p>
+<p><span class="paper-label">Why it matters</span><br>This closes a rate gap for stochastic gradient regularization of large linear least-squares inverse problems: it removes the logarithmic loss in earlier bounds and handles substantially more general step-size schedules.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li><strong>Theorem-backed:</strong> The authors prove order-optimal convergence rates in expectation for Hölder source smoothness ν in (0, 1/2], under bounded positive step sizes whose cumulative sum diverges.</li>
+<li><strong>Rate:</strong> Their estimate is E‖x<sub>k</sub><sup>δ</sup>−x†‖² ≤ C[(1+s<sub>k</sub>/N)<sup>−2ν</sup> + δ²s<sub>k</sub>/N], yielding the claimed optimal root-mean-square rate O(δ<sup>2ν/(1+2ν)</sup>) with early stopping.</li>
+<li><strong>Almost-sure result:</strong> Using a Lyapunov argument and Robbins–Siegmund, the authors also establish sample-path error bounds and the same order in norm almost surely.</li>
+<li><strong>Qualification:</strong> The analysis is for linear ill-posed systems in Hilbert spaces and ν≤1/2; it does not establish the same guarantees for nonlinear inverse problems.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>Equation (1.8) and the surrounding contribution statement, then Lemma 2.7 for the Lyapunov estimate and the principal convergence-rate theorem in Section 2. The almost-sure result follows in the next main theorem.</p></article>
+
+<article class="paper-entry"><h3>2. A Simpler Generalized Minimal Residual Based Iterative Back Propagation Algorithm for Polynomial Nonlinear Models</h3>
+<p class="paper-byline"><strong>Wen-Di Yao, Hong-Xiu Zhong and Jing Chen</strong> · <em>Circuits, Systems, and Signal Processing</em> · Springer Nature · First published online 7 September 2026 · DOI: 10.1007/s00034-026-03757-2 · <a href="https://link.springer.com/article/10.1007/s00034-026-03757-2" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Nonlinear equations · gradient methods · nonlinear least squares · signal processing</p>
+<p><span class="paper-label">Why it matters</span><br>The paper brings Arnoldi/GMRES structure into iterative identification of polynomial nonlinear models while simplifying the earlier GMR-IBP implementation and adding adaptive step-size control.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li><strong>Methodology:</strong> The authors propose SGMR-IBP, an Arnoldi-based iterative back-propagation method that avoids the Givens transformations and eigenvalue calculations required by the earlier GMR-IBP scheme.</li>
+<li><strong>Adaptivity:</strong> They add an adaptive step-size update intended to improve robustness across identification problems.</li>
+<li><strong>Theory and experiments:</strong> The authors report a feasibility analysis and two numerical examples supporting effectiveness; the public publisher page does not expose enough detail to independently compare exact error or runtime metrics.</li>
+<li><strong>Qualification:</strong> The evidence is limited to two examples and the contribution is specialized to polynomial nonlinear system identification rather than a general nonlinear least-squares solver.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>Start with the SGMR-IBP algorithm and its adaptive step-size rule, then the paper’s feasibility theorem. Use the two numerical examples specifically to compare iteration cost and identification error against GMR-IBP.</p></article>
+</section>
+
+<section class="digest-section" aria-labelledby="arxiv-heading">
+<h2 id="arxiv-heading" class="section-title">arXiv preprints</h2>
+<p class="section-intro">Seven substantive preprints are ranked independently of the publisher section.</p>
+
+
 
 <article class="paper-entry"><h2>1. Counterexamples for BFGS-type methods under arbitrary strong Wolfe constants</h2>
 <p class="paper-byline"><strong>Rui Diao</strong> · arXiv · 9 September 2026 · <a href="https://arxiv.org/abs/2609.09686" target="_blank" rel="noopener">Primary source ↗</a></p>
