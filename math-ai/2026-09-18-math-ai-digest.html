@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathematics &amp; AI Digest — 18 September 2026</title>
+<meta name="description" content="Weekly Math and AI digest: posterior evaluation for inverse solvers, weak Gauss–Newton PDE methods, long-horizon mathematics agents, structured system identification, conflict-free PINNs, and Lyapunov operators.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site-header"><div class="header-inner">
+  <p class="site-name"><a href="../index.html">Hassan Mohammad</a></p>
+  <nav class="site-nav" aria-label="Primary"><ul>
+    <li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li>
+    <li><a href="../people.html">People</a></li><li><a href="../news.html">News</a></li>
+    <li><a href="../math-ai.html" class="active">Math &amp; AI</a></li>
+    <li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+  </ul></nav>
+</div></header>
+
+<main class="digest-article">
+  <p class="eyebrow">Mathematics &amp; Artificial Intelligence · Issue 3</p>
+  <h1>Posterior-aware inverse solvers and weak-form neural PDE methods</h1>
+  <div class="article-meta">Published <time datetime="2026-09-18">18 September 2026</time> · Curated by Hassan Mohammad</div>
+  <p class="coverage">Coverage: substantive releases and revisions from 11–17 September 2026. Six developments met the editorial threshold. This was a strong week for scientific-computing methodology and evaluation, with more mixed evidence for autonomous mathematical research.</p>
+
+  <section class="reading-order" aria-labelledby="reading-order-title">
+    <h2 id="reading-order-title">Reading order</h2>
+    <ol>
+      <li><a href="#posteriorbench">PosteriorBench</a> — strongest benchmark and reproducibility contribution.</li>
+      <li><a href="#beyond-pinns">Beyond PINNs</a> — strongest mathematical-method contribution.</li>
+      <li><a href="#colosseum">Stellar Colosseum</a> — consequential research harness, with important verification caveats.</li>
+      <li><a href="#siphy">SIPHy</a> — structure-preserving symbolic system identification.</li>
+      <li><a href="#conflict-free">Conflict-free PINNs and PIKANs</a> — broad experiments and public code.</li>
+      <li><a href="#lyapunov">Learning Lyapunov Operators</a> — sound theory with a narrow numerical study.</li>
+    </ol>
+  </section>
+
+  <article class="paper-entry" id="posteriorbench">
+    <div class="entry-kicker">Benchmark and software · Strong evidence · Read first</div>
+    <h2>1. PosteriorBench: From Point Estimates to Posterior Matching in Evaluating Generative Inverse Solvers</h2>
+    <p class="paper-byline"><strong>Jiachen Yao, Zi-Siang Hsu, Xi Deng, Aditi Gupta, Xin Ju, Sally M. Benson, Gege Wen and Anima Anandkumar</strong> · arXiv · 17 September 2026 · Benchmark, datasets and evaluation software · <a href="https://arxiv.org/abs/2609.20794" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/neuraloperator/PosteriorBench" target="_blank" rel="noopener">Code ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>Ill-posed inverse problems require calibrated distributions, not merely a visually plausible reconstruction. PosteriorBench directly tests whether generative solvers recover posterior means, uncertainty, geometry and spatial spectra instead of rewarding a single lucky estimate.</p>
+    <div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+      <li>Defines four physics-based tasks: Darcy permeability inversion, Poisson source recovery, carbon-storage geomodel inference and light-transport material inference.</li>
+      <li>Constructs reference posteriors using rejection sampling, importance weighting or MCMC, then validates their stability and observation consistency.</li>
+      <li>Combines five metrics: relative posterior-mean and standard-deviation errors, maximum mean discrepancy, sliced Wasserstein distance using 128 smooth GRF projections, and radially averaged power-spectrum error.</li>
+      <li>Compares eight solver families, including function-space diffusion methods, ensemble data assimilation and FNOs with Monte Carlo dropout.</li>
+      <li>Shows that low pointwise error can coexist with incorrect variance or spatial statistics; guidance strength improves data consistency but can collapse posterior variance.</li>
+      <li>Releases code and a unified protocol for adding inverse solvers and evaluating resolution, observation noise and out-of-distribution behavior.</li>
+    </ul></div>
+    <p><span class="paper-label">Evidence and caution</span><br>The task diversity, expensive reference construction, explicit baseline configurations, standard deviations and public repository make this unusually reproducible. Reference posteriors remain finite approximations—often 100 retained samples—and some expensive forward models use validated surrogates. Metrics can disagree, so no single scalar ranking should be treated as definitive. Independent validation has not yet appeared.</p>
+    <p><span class="paper-label">Read first</span><br>Section 3.2 on reference-posterior construction, Section 3.3 on the five-metric suite, and Sections 4.3–4.8 on pointwise/distributional trade-offs and calibration.</p>
+  </article>
+
+  <article class="paper-entry" id="beyond-pinns">
+    <div class="entry-kicker">Numerical analysis · Strong conceptual contribution, moderate empirical evidence</div>
+    <h2>2. Beyond PINNs: A Unified Gauss–Newton and Petrov–Galerkin Framework for Neural and Hybrid PDE Solvers</h2>
+    <p class="paper-byline"><strong>Nilo Schwencke and Roland Maier</strong> · arXiv · 17 September 2026 · Numerical-analysis research paper · <a href="https://arxiv.org/abs/2609.20641" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://nilo.schwencke.me/tutorials/beyond-pinns-companion/" target="_blank" rel="noopener">Companion experiments ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>The paper puts PINN collocation, natural-gradient training, weak formulations and finite-element test spaces inside one functional Gauss–Newton framework. For numerical analysts, the key gain is that test-function choice becomes an explicit discretization decision rather than an incidental loss design.</p>
+    <div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+      <li>Shows that applying finite linear measurements to a functional Gauss–Newton problem yields a Petrov–Galerkin discretization of the linearized equation.</li>
+      <li>Recovers pointwise collocation and natural-gradient constructions as special cases of the same framework.</li>
+      <li>Extends the construction to weak elliptic residuals in (H^{-1}), avoiding strong residuals that may be undefined for low-regularity solutions or finite-element functions.</li>
+      <li>Builds a hybrid finite-element–neural approximation whose components occupy complementary energy subspaces without block-alternating optimization.</li>
+      <li>Evaluates relative (L^2) and (H^1) errors on smooth and low-regularity elliptic problems, with optimizer and activation ablations documented separately.</li>
+    </ul></div>
+    <p><span class="paper-label">Evidence and caution</span><br>The functional derivation is the paper’s durable result, and the companion material improves transparency. The experiments are still small elliptic benchmarks, mainly one- and two-dimensional, rather than large-scale comparisons against mature finite-element solvers. No packaged implementation was identified, and there is no independent replication.</p>
+    <p><span class="paper-label">Read first</span><br>Section 3 for the Gauss–Newton/Petrov–Galerkin equivalence, Section 4 for the projected hybrid construction, then Section 5.2 for low-regularity experiments.</p>
+  </article>
+
+  <article class="paper-entry" id="colosseum">
+    <div class="entry-kicker">Mathematical research agent · Strong engineering signal, mixed verification</div>
+    <h2>3. Stellar Colosseum: A Many-Agent Harness for Long-Horizon Research in Mathematics and Theoretical Computer Science</h2>
+    <p class="paper-byline"><strong>Honghao Lin, David P. Woodruff, Yuan Deng, Jieming Mao, Song Zuo and Vahab Mirrokni</strong> · arXiv v2 · first published 14 September; revised 15 September 2026 · Research harness and technical report · <a href="https://arxiv.org/abs/2609.15983" target="_blank" rel="noopener">Paper ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>Long mathematical projects fail through poor strategy selection and error propagation as often as through local proof inability. Colosseum explicitly represents exploration, readiness, proof dependencies, targeted falsification and revision as separate stages.</p>
+    <div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+      <li>Explores multiple strategies before proof writing, gates decomposition on readiness, and represents a proof as interdependent section-level tasks.</li>
+      <li>Uses parallel candidate generation, targeted falsification and overlapping random-sample tree aggregation to combine proposals and critiques.</li>
+      <li>Reports 54.0% and 55.0% on the 300-task TCS-Bench for separate Gemini 3.1 Pro and Gemini 3.7 Flash runs; critique-based cross-model selection reaches 71.0% versus a 77.3% oracle best-of-two ceiling.</li>
+      <li>The critique signal obtains reported AUC 0.896 for separating proofs labeled correct and incorrect by the benchmark grader.</li>
+      <li>Reports 218 of 222 accepted Codeforces solutions under full hidden tests and presents long-form proof artifacts for open-problem case studies.</li>
+    </ul></div>
+    <p><span class="paper-label">Evidence and caution</span><br>Codeforces execution is objective, but TCS-Bench relies on a reference-assisted automated grader whose reported accuracy exceeds 90% on only 100 expert-labeled proofs. The open-problem claims have uneven verification: some artifacts were human-checked, while others remain generated drafts or conditional results. Inference cost, repeated-run variance and component ablations are not fully characterized, and the complete harness is not released as a standalone reproducible package.</p>
+    <p><span class="paper-label">Read first</span><br>Sections 3–4 for workflow and verification routing, Table 2 for TCS-Bench, and Sections 5.6–5.7 for the distinction between proof artifacts and independently checked mathematics.</p>
+  </article>
+
+  <article class="paper-entry" id="siphy">
+    <div class="entry-kicker">Symbolic–numeric system identification · Moderate evidence</div>
+    <h2>4. SIPHy: Sparse identification of port-Hamiltonian systems from noisy data</h2>
+    <p class="paper-byline"><strong>Håkon Noren Myhr, Sølve Eidnes and J. Nathan Kutz</strong> · arXiv · 17 September 2026 · Algorithmic research paper · <a href="https://arxiv.org/abs/2609.20399" target="_blank" rel="noopener">Paper ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>Separating stored energy, dissipation and control makes a discovered model interpretable and permits counterfactual simulation outside the observed forcing regime. SIPHy enforces that port-Hamiltonian decomposition during sparse recovery rather than fitting an unconstrained vector field.</p>
+    <div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+      <li>Reduces joint identification of the Hamiltonian, dissipation and input maps to one linear regression under stated momentum-coordinate and feature-library assumptions.</li>
+      <li>Uses sequentially thresholded least squares to obtain sparse symbolic models while preserving the prescribed port-Hamiltonian structure.</li>
+      <li>Introduces Hamiltonian flow splines: piecewise-polynomial Hamiltonian flows constrained for continuity and coercivity to differentiate noisy or irregularly sampled trajectories.</li>
+      <li>Separates energy, dissipation and forcing so learned systems can be simulated under unseen controls or dissipation regimes.</li>
+      <li>Tests noisy and incomplete trajectories across conservative, dissipative and controlled dynamical systems.</li>
+    </ul></div>
+    <p><span class="paper-label">Evidence and caution</span><br>The structural derivation and noise experiments are convincing as a proof of concept. Correct recovery still depends on the true system fitting the assumed port-Hamiltonian form, suitable coordinates, and a feature library containing the relevant terms. Public code was not identified, hyperparameter selection remains consequential, and there is no independent validation.</p>
+    <p><span class="paper-label">Read first</span><br>Table 1 and Section 3.2 for the linear-regression construction, then the noise experiments comparing Hamiltonian flow splines with conventional derivative estimation.</p>
+  </article>
+
+  <article class="paper-entry" id="conflict-free">
+    <div class="entry-kicker">Scientific ML optimization · Moderate-to-strong experimental evidence</div>
+    <h2>5. Tackling Failure Modes of PINNs and PIKANs Using Conflict-Free Gradients</h2>
+    <p class="paper-byline"><strong>Sidharth S. Menon, Irina Tezaur and Ameya D. Jagtap</strong> · arXiv v2 · first published 13 September; revised 16 September 2026 · Method and software · <a href="https://arxiv.org/abs/2609.14841" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/ParamIntelligence/Conflict-Free-domain-decomposition" target="_blank" rel="noopener">Code ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>Domain-decomposed PINNs optimize residual, boundary and interface losses whose gradients can directly oppose one another. Treating this as multi-objective optimization yields a concrete diagnostic and intervention rather than relying only on scalar loss reweighting.</p>
+    <div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+      <li>Applies PCGrad and ConFIG to two- and three-dimensional domain-decomposition PINNs and identifies failures with several overlapping interfaces.</li>
+      <li>Introduces Norm-PCGrad, which normalizes gradients before projection and is max–min optimal in the normalized projected-gradient space; for two gradients it is equivalent to ConFIG.</li>
+      <li>Reports the lowest relative (L^2) error among no-surgery, PCGrad and ConFIG baselines across the stated benchmark set with negligible gradient-surgery overhead.</li>
+      <li>Combines separable PINN subdomains with ordinary PINNs and proposes multi-grid SPINN sampling for non-Euclidean decompositions.</li>
+      <li>Extends the study to PIKANs and documents an interface-placement failure that produces a physically inconsistent trivial solution regardless of optimizer.</li>
+    </ul></div>
+    <p><span class="paper-label">Evidence and caution</span><br>The 46-page study includes extensive two- and three-dimensional tests, curvature-aware SSBroyden comparisons, sampling summaries and public code. “State of the art” is confined to the selected domain-decomposition settings; wall-clock gains depend on architecture and batching, and classical discretizations are not the central baseline. The many method components also make attribution harder despite ablations.</p>
+    <p><span class="paper-label">Read first</span><br>The Norm-PCGrad optimality result, the three-dimensional overlapping-interface experiments, and the interface-location failure analysis; inspect Appendix B and the repository for mSPINN reproduction.</p>
+  </article>
+
+  <article class="paper-entry" id="lyapunov">
+    <div class="entry-kicker">Operator learning and control · Strong theory, preliminary numerics</div>
+    <h2>6. Learning Lyapunov Operators for Nonlinear Systems</h2>
+    <p class="paper-byline"><strong>Amartya Mukherjee, Maxwell Fitzsimmons, David C. Del Rey Fernández and Jun Liu</strong> · IEEE Conference on Decision and Control 2026 / arXiv · 16 September 2026 · Conference paper · <a href="https://arxiv.org/abs/2609.18894" target="_blank" rel="noopener">Paper ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>Learning a solution operator from vector fields to Lyapunov functions could amortize stability analysis over parameterized families, avoiding a fresh Lyapunov PDE solve for every nearby nonlinear system.</p>
+    <div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+      <li>Defines a Lyapunov solution operator mapping a nonlinear vector field and dissipation function to the solution of a dissipation-based Lyapunov PDE.</li>
+      <li>Proves well-definedness, uniqueness and continuity on compact subsets of the domain of attraction under exponential-stability and Sobolev-regularity assumptions.</li>
+      <li>Uses the continuity result to justify uniform neural-operator approximation across families of systems.</li>
+      <li>Implements an AdaIN-conditioned Fourier Neural Operator and tests parameterized Duffing, inverted-pendulum and Van der Pol families.</li>
+      <li>Reports relative (L^1) error 0.0182 for the FNO versus 0.6483 for a DeepONet baseline.</li>
+    </ul></div>
+    <p><span class="paper-label">Evidence and caution</span><br>Theorem 3 provides a meaningful analytical foundation, but the empirical comparison is one FNO against one DeepONet on low-dimensional systems. The learned approximation is not itself a formally verified Lyapunov certificate, no public code was identified, and FFT memory/time scaling limits direct extension to higher-dimensional state spaces.</p>
+    <p><span class="paper-label">Read first</span><br>Theorem 3 and its perturbation argument, followed by Table I and the stated higher-dimensional scaling limitation.</p>
+  </article>
+
+  <aside class="category-note"><strong>Signal versus hype.</strong> The week provides real progress in evaluation and formulation: posterior samplers are being judged as distributions, and neural PDE solvers are being connected more cleanly to Petrov–Galerkin and multi-objective optimization. It does not show that generative inverse solvers are calibrated by default, that neural methods outperform mature numerical solvers broadly, or that multi-agent systems can independently certify new mathematics. Public code is strongest for PosteriorBench and conflict-free domain decomposition; several other results still await independent reproduction.</aside>
+  <p class="editorial-note">Selection and commentary are editorial. Reported numerical results are claims made by the cited authors and are distinguished from independent validation.</p>
+  <nav class="digest-nav" aria-label="Math and AI digest issues"><a href="2026-09-11-math-ai-digest.html">← Previous issue</a><a href="../math-ai.html">All Math &amp; AI issues</a><span aria-current="page">Latest issue</span></nav>
+</main>
+
+<footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer>
+</body>
+</html>
