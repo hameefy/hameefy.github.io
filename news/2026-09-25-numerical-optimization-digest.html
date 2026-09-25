@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numerical Optimization Digest — Issue 7 · 25 September 2026</title>
+<meta name="description" content="Issue 7: randomized preconditioning for kernel ridge regression, structure-preserving optimization of Markov chains, and whole-sequence convergence of variable-smoothing splitting methods.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="../style.css"></head><body>
+<header class="site-header"><div class="header-inner"><p class="site-name"><a href="../index.html">Hassan Mohammad</a></p><nav class="site-nav" aria-label="Primary"><ul><li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li><li><a href="../people.html">People</a></li><li><a href="../news.html" class="active">News</a></li><li><a href="../math-ai.html">Math &amp; AI</a></li><li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li><li><a href="../contact.html">Contact</a></li></ul></nav></div></header>
+<main class="digest-article">
+<p class="eyebrow">Numerical Optimization Digest · Issue 7</p>
+<h1>Randomized preconditioning, reversible Markov chains, and nonconvex splitting</h1>
+<div class="article-meta">Published <time datetime="2026-09-25">25 September 2026</time> · Curated by Hassan Mohammad</div>
+<p class="coverage">Coverage: first-online publications and first-posted preprints from 18–24 September 2026. Two peer-reviewed Springer Nature articles and one arXiv preprint met this issue’s methodological threshold.</p>
+
+<section class="digest-section" aria-labelledby="peer-reviewed-heading">
+<h2 id="peer-reviewed-heading" class="section-title">Peer-reviewed publications</h2>
+<p class="section-intro">Two articles with substantial numerical-method contributions. Publisher publication dates determine inclusion in this section.</p>
+<article class="paper-entry"><h3>1. Robust, randomized preconditioning for kernel ridge regression</h3>
+<p class="paper-byline"><strong>Mateo Díaz, Ethan N. Epperly, Zachary Frangella, Joel A. Tropp and Robert J. Webber</strong> · <em>Advances in Computational Mathematics</em> · Springer Nature · First online 18 September 2026 · DOI: <a href="https://doi.org/10.1007/s10444-026-10360-1">10.1007/s10444-026-10360-1</a> · <a href="https://link.springer.com/article/10.1007/s10444-026-10360-1" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Conjugate-gradient methods · optimization in machine learning · numerical linear algebra · kernel ridge regression</p>
+<p><span class="paper-label">Why it matters</span><br>Large kernel ridge regression problems are limited by the conditioning and cost of their linear systems. The authors analyze two randomized preconditioners for complementary full-data and restricted regimes.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li><strong>Full KRR:</strong> With sufficiently rapid eigenvalue decay of the kernel matrix, RPCholesky-preconditioned conjugate gradients attain fixed accuracy in O(N<sup>2</sup>) arithmetic operations.</li>
+<li><strong>Restricted KRR:</strong> With k ≪ N centers, KRILL requires O((N + k<sup>2</sup>)k log k) operations without an eigenvalue-decay assumption.</li>
+<li><strong>Experiments:</strong> Tests on benchmark and scientific datasets report robust behavior against existing preconditioners.</li>
+<li><strong>Qualification:</strong> The full-KRR complexity guarantee assumes sufficiently rapid spectral decay; KRILL’s guarantee addresses the restricted problem.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>The RPCholesky and KRILL complexity analysis, the numerical experiments, and Appendix 1’s blocked RPCholesky pseudocode.</p></article>
+
+<article class="paper-entry"><h3>2. Kemeny’s constant minimization for reversible Markov chains via structure-preserving perturbations</h3>
+<p class="paper-byline"><strong>Fabio Durastante, Miryam Gnazzo and Beatrice Meini</strong> · <em>BIT Numerical Mathematics</em> · Springer Nature · First online 23 September 2026 · DOI: <a href="https://doi.org/10.1007/s10543-026-01152-6">10.1007/s10543-026-01152-6</a> · <a href="https://link.springer.com/article/10.1007/s10543-026-01152-6" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Riemannian optimization · conjugate-gradient methods · constrained optimization · numerical linear algebra</p>
+<p><span class="paper-label">Why it matters</span><br>The authors optimize a measure of a Markov chain’s mixing efficiency while preserving reversibility, a fixed stationary distribution, and a prescribed sparsity pattern.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li><strong>Formulation:</strong> Restricting the chain to reversible transition matrices makes the Kemeny-constant minimization problem convex over the structured feasible set.</li>
+<li><strong>Methods:</strong> The paper develops interior-point and Riemannian optimization approaches, including first-order geometry on the manifold of structured stochastic matrices.</li>
+<li><strong>Experiments:</strong> Numerical examples compare the methods and show accurate preservation of reversibility and stationarity by the Riemannian approach, with competitive reductions in Kemeny’s constant.</li>
+<li><strong>Qualification:</strong> The framework assumes reversibility and a prescribed perturbation pattern; it does not solve the unrestricted Markov-chain problem.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>The feasible-manifold and Riemannian-gradient construction, then the numerical comparisons with the interior-point and SDP formulations.</p></article>
+</section>
+
+<section class="digest-section" aria-labelledby="arxiv-heading">
+<h2 id="arxiv-heading" class="section-title">arXiv preprints</h2>
+<p class="section-intro">One independently selected preprint with a new whole-sequence convergence argument.</p>
+<article class="paper-entry"><h3>1. Whole-Sequence Convergence of Variable-Smoothing Full-Splitting Methods via a Lifted Kurdyka-Łojasiewicz Framework</h3>
+<p class="paper-byline"><strong>Min Tao</strong> · arXiv:2609.28306 · First posted 23 September 2026 · <a href="https://arxiv.org/abs/2609.28306" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Nonconvex optimization · proximal and gradient methods · global convergence · convergence analysis</p>
+<p><span class="paper-label">Why it matters</span><br>Variable smoothing changes the model at every iteration, frustrating a direct fixed-objective convergence argument. The author constructs fixed lifted potentials to control the effects of that change.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li><strong>Convergence:</strong> Under a Kurdyka–Łojasiewicz assumption on a fixed lifted potential and weighted summability of smoothing-change residuals, a scaled finite-length argument establishes convergence of the entire primal sequence to an exact limiting lifted stationary point.</li>
+<li><strong>Schedules:</strong> For power schedules γ<sub>k</sub> = (k + k<sub>0</sub>)<sup>−β</sup>, with 1/2 &lt; β ≤ 1, the required summability holds when the lift exponent is sufficiently large.</li>
+<li><strong>Extension:</strong> A corollary covers variable-smoothing full-splitting projected-gradient methods for nonconvex nonsmooth composite optimization without a full-row-rank assumption on the linear operators.</li>
+<li><strong>Qualification:</strong> The KL condition and residual-summability hypothesis are substantive assumptions; this preprint has not been peer reviewed in this digest’s publisher category.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>The fixed lifted-potential construction, sufficient-decrease and relative-error estimates, and the finite-length argument; then the power-schedule corollary.</p></article>
+</section>
+
+<aside class="category-note"><strong>Coverage note.</strong> The weekly Google Scholar recommendation emails were screened during preparation of this issue. Relevant recommendations with earlier verified first-publication or first-posting dates were excluded from the 18–24 September window, including reflected-gradient, PDHG, and GPU nonconvex-QP papers first posted on 16–17 September. No qualifying Taylor &amp; Francis, SIAM, Elsevier, or Wiley paper cleared this issue’s general-methodology threshold; the publisher section was not padded.</aside>
+<p class="editorial-note">Selection and commentary are editorial. “Main result claims” summarizes the authors’ claims and distinguishes theorem-backed results from numerical evidence; it is not independent validation. Publication dates and bibliographic information link to primary sources.</p>
+<nav class="digest-nav" aria-label="Digest issues"><a href="2026-09-18-computational-mathematics-digest.html">← Issue 6</a><a href="../news.html">All issues</a><span aria-current="page">Latest issue</span></nav>
+</main>
+<footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer></body></html>
