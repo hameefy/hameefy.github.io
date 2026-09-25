@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathematics &amp; AI Digest — 25 September 2026</title>
+<meta name="description" content="Weekly Math and AI digest: neural-operator cost trade-offs, validated scientific-code generation, scientific coding data, search-aligned theorem proving, hybrid neural PDE solvers, and memory-efficient operators.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site-header"><div class="header-inner">
+  <p class="site-name"><a href="../index.html">Hassan Mohammad</a></p>
+  <nav class="site-nav" aria-label="Primary"><ul>
+    <li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li>
+    <li><a href="../people.html">People</a></li><li><a href="../news.html">News</a></li>
+    <li><a href="../math-ai.html" class="active">Math &amp; AI</a></li>
+    <li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+  </ul></nav>
+</div></header>
+
+<main class="digest-article">
+  <p class="eyebrow">Mathematics &amp; Artificial Intelligence · Issue 4</p>
+  <h1>When learned solvers pay off—and when classical numerics still win</h1>
+  <div class="article-meta">Published <time datetime="2026-09-25">25 September 2026</time> · Curated by Hassan Mohammad</div>
+  <p class="coverage">Coverage: substantive releases and revisions from 18–24 September 2026. Six developments met the editorial threshold. The strongest work this week replaces vague speed claims with matched-accuracy comparisons and couples automated scientific code with executable or physical validation.</p>
+
+  <section class="reading-order" aria-labelledby="reading-order-title">
+    <h2 id="reading-order-title">Reading order</h2>
+    <ol>
+      <li><a href="#cost-accuracy">Cost–accuracy trade-offs</a> — strongest and most consequential evaluation study.</li>
+      <li><a href="#agent-e2md">Agent-E2MD</a> — strongest automated scientific-code implementation result.</li>
+      <li><a href="#sciwalker">SciWalker</a> — substantial execution-verified scientific-coding dataset.</li>
+      <li><a href="#cat-atp">Compute-aligned theorem-prover training</a> — principled objective with controlled Lean experiments.</li>
+      <li><a href="#ancestor">Learning Physics from an Imperfect Ancestor</a> — useful nonlinear-solver basin-selection mechanism.</li>
+      <li><a href="#meno">MENO</a> — promising memory scaling with evaluation-protocol caveats.</li>
+    </ol>
+  </section>
+
+  <article class="paper-entry" id="cost-accuracy">
+    <div class="entry-kicker">Numerical-analysis benchmark · Strong evidence · Read first</div>
+    <h2>1. Cost-Accuracy Trade-offs: Neural Operator vs Classical Numerical Solver</h2>
+    <p class="paper-byline"><strong>Daniel Zhengyu Huang and Andrew M. Stuart</strong> · arXiv · 21 September 2026 · Reproducible benchmark study · <a href="https://arxiv.org/abs/2609.24021" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/Zhengyu-Huang/Cost-accuracy-trade-off" target="_blank" rel="noopener">Code and data ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>Claims that neural operators are faster than classical solvers are meaningless unless accuracy, requested output, hardware and the classical algorithm are matched. This paper performs that comparison in a deliberately favorable post-training regime for learning-based surrogates.</p>
+    <div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+      <li>Defines a lifecycle cost model and studies the fully amortized many-query limit, explicitly excluding data-generation and training cost from the online comparison.</li>
+      <li>Benchmarks one modified FNO family on 2D Darcy flow, 2D time-dependent Navier–Stokes and 3D vehicle aerodynamics.</li>
+      <li>Uses problem-matched baselines: finite elements with geometric multigrid, Fourier pseudospectral discretization with RK4, and OpenFOAM RANS with SIMPLE iteration.</li>
+      <li>Measures matched-error floating-point work and CPU/GPU wall time rather than raw inference latency alone.</li>
+      <li>Finds neural operators most competitive at low-to-moderate accuracy; all three classical solvers regain the advantage as accuracy requirements tighten.</li>
+      <li>Separates acceleration mechanisms: dense hardware-efficient execution, reduced sequential time stepping, and predicting a surface quantity without a full volumetric solve.</li>
+    </ul></div>
+    <p><span class="paper-label">Evidence and caution</span><br>The matched baselines, architecture sensitivity, solver sensitivity, released code and three distinct regimes make this the week’s strongest result. The analysis intentionally gives neural operators their best case by fully amortizing offline costs and evaluates one principal operator family. Conclusions should not be generalized to every architecture, out-of-distribution input or finite-query deployment.</p>
+    <p><span class="paper-label">Read first</span><br>Table 1 and Sections 2.2–2.3 for the cost model, then Section 4’s three regime-specific plots and explanations.</p>
+  </article>
+
+  <article class="paper-entry" id="agent-e2md">
+    <div class="entry-kicker">Scientific-code generation · Moderate-to-strong validation</div>
+    <h2>2. Agent-E2MD: Autonomous Translation of Interatomic Potential Equations into Physically Validated Pair Styles for Molecular Dynamics in LAMMPS</h2>
+    <p class="paper-byline"><strong>Bilvin Varughese, Orcun Yildiz, Aditya Koneru, Henry Chan, Tom Peterka and Subramanian Sankaranarayanan</strong> · arXiv · 22 September 2026 · Agentic software-engineering research · <a href="https://arxiv.org/abs/2609.26657" target="_blank" rel="noopener">Paper ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>Implementing a potential in production molecular-dynamics software requires correct derivatives, neighbor-list choices, parallel communication and host-code conventions—not merely translating equations into C++. Agent-E2MD puts physical validation inside the generation loop.</p>
+    <div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+      <li>Combines potential classification, LAMMPS pair-style generation, autonomous build–test–repair, simulation execution and hierarchical physical validation.</li>
+      <li>Tests seven potential/material pairs spanning pairwise, many-body, machine-learned and reactive models: LJ Ar, EAM/FS Ag, MEAM Bi, Tersoff Si, GAP Ni, ReaxFF C/H/N/O and symbolic-regression EAM Al.</li>
+      <li>Reports matching reference single-point energies and forces for all seven cases.</li>
+      <li>Validates relaxed lattice properties, vacancy-formation energies and elastic constants on five crystalline many-body benchmarks.</li>
+      <li>Runs nanosecond-scale finite-temperature stability tests for Ag, Bi, Si and Ni and reactive dynamics with bond-order and charge equilibration for ReaxFF.</li>
+    </ul></div>
+    <p><span class="paper-label">Evidence and caution</span><br>Layered physical tests are substantially stronger than compilation or unit tests alone, and the diverse potential classes make this more than a single demonstration. The seven cases remain curated, generated implementations still require expert review, and no public workflow repository was identified from the primary source. Independent validation and tests on previously unseen potential families are absent.</p>
+    <p><span class="paper-label">Read first</span><br>The workflow/validation hierarchy, followed by the table comparing generated and reference energies, forces and bulk material properties.</p>
+  </article>
+
+  <article class="paper-entry" id="sciwalker">
+    <div class="entry-kicker">Dataset and training pipeline · Strong construction evidence, moderate downstream evidence</div>
+    <h2>3. SciWalker: Synthesizing Scientific Coding Problems with Operator Graphs and Execution Feedback</h2>
+    <p class="paper-byline"><strong>Chenxi Li, Wenxuan Zeng, Yun Luo, Fangchen Yu, Peng Ye, Yu Cheng and Jun Zhang</strong> · arXiv · 24 September 2026 · Dataset-generation framework and software · <a href="https://arxiv.org/abs/2609.30054" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/lichenx1/SciWalker" target="_blank" rel="noopener">Code ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>Scientific-code training data often consist of isolated library calls or unverifiable prose. SciWalker composes actual scientific-library operations into multistep workflows and rejects tasks that fail executable tests or quality review.</p>
+    <div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+      <li>Builds 17,920 operators and 772,178 graph edges from scientific Python interfaces across mathematics, physics, chemistry, biology and materials science.</li>
+      <li>Samples operator chains of length 3–15, then generates problem statements, reference programs and tests with execution-guided repair.</li>
+      <li>Retains 8,178 problems containing 37,820 substeps across 32 subdomains from 66,889 initial candidate chains—a 12.2% final retention rate.</li>
+      <li>Uses differential testing plus checks for parameter variations, boundary cases and scientific invariants.</li>
+      <li>RL training of Qwen3.5-9B raises SciCode subproblem accuracy from 29.3% to 39.2%, with reported gains of 17.3 points on DS-1000 and 6.0 points on MATH-500.</li>
+    </ul></div>
+    <p><span class="paper-label">Evidence and caution</span><br>The disclosed filtering funnel, executable tests, cross-benchmark evaluation and public repository support reproducibility. Execution verifies agreement with generated or oracle implementations, not necessarily scientific naturalness or mathematical correctness beyond the tests. Only one principal model/training recipe is evaluated, and benchmark contamination or library-pattern memorization needs further study.</p>
+    <p><span class="paper-label">Read first</span><br>Section 3.4 on validation and repair, Table 5’s retention funnel, and the downstream benchmark table separating in-domain from transfer gains.</p>
+  </article>
+
+  <article class="paper-entry" id="cat-atp">
+    <div class="entry-kicker">Automated theorem proving · Strong objective derivation, moderate empirical evidence</div>
+    <h2>4. Direct Optimization of Generators for Search in Automated Theorem Proving</h2>
+    <p class="paper-byline"><strong>Adam Ousherovitch and Ambuj Tewari</strong> · arXiv · 22 September 2026 · Algorithmic research paper · <a href="https://arxiv.org/abs/2609.25575" target="_blank" rel="noopener">Paper ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>A tactic generator deployed inside a search procedure should be trained for proof discovery under a compute budget, not only for next-tactic imitation. This work derives losses aligned with the eventual search strategy.</p>
+    <div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+      <li>Extends Compute-Aligned Training to policy-guided tree search and derives trace-supported approximations for otherwise unobserved off-trace states.</li>
+      <li>Introduces a search-agnostic uniform-allocation objective that incorporates deployment budget without committing to one search algorithm.</li>
+      <li>Reduces both objectives to scalar reweighting of ordinary per-tactic cross-entropy gradients.</li>
+      <li>Evaluates Pass@N, BFS, DFS, randomized DFS, value-guided DFS and MCTS on 458 held-out Lean theorems.</li>
+      <li>At 256 tactic expansions, shared uniform allocation improves observed proof rates over cross-entropy in every strategy; examples include 25.1% versus 21.2% for Pass@N and 26.9% versus 23.8% for BFS.</li>
+    </ul></div>
+    <p><span class="paper-label">Evidence and caution</span><br>The paired budget sweeps, confidence intervals and six search strategies support the central alignment argument. Several individual differences are not statistically significant, only one benchmark/model setting is studied, and no public code was identified. The empirical results assess proof discovery, not novelty or research-level theorem proving.</p>
+    <p><span class="paper-label">Read first</span><br>The derivation of the search-aware and uniform-allocation weights, Table 1, and the budget-scaling experiment in Section 5.2.</p>
+  </article>
+
+  <article class="paper-entry" id="ancestor">
+    <div class="entry-kicker">Hybrid neural PDE solver · Moderate evidence</div>
+    <h2>5. Learning Physics from an Imperfect Ancestor</h2>
+    <p class="paper-byline"><strong>S. Mohammad Mousavi, Teeratorn Kadeethum, Nikolaos Bouklas and Somdatta Goswami</strong> · arXiv · 21 September 2026 · Scientific-ML method · <a href="https://arxiv.org/abs/2609.24947" target="_blank" rel="noopener">Paper ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>For nonlinear PDEs with multiple residual-minimizing branches, a PINN can converge to a mathematically valid but physically unwanted solution. The paper uses an inaccurate neural operator as a branch selector and the PDE residual as the final corrector.</p>
+    <div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+      <li>Freezes a neural operator’s learned spatial basis, extrapolates the solution branch to an out-of-distribution parameter using polynomial continuation, and distills that field into a fresh PINN.</li>
+      <li>Separates structural information from pointwise accuracy: the operator need only initialize the correct attraction basin.</li>
+      <li>Tests viscous Burgers, steady Allen–Cahn near a pitchfork bifurcation and lid-driven cavity flow.</li>
+      <li>Recovers the nonzero Allen–Cahn branch where an ordinary PINN collapses to the exactly residual-free trivial solution.</li>
+      <li>At Reynolds number 3200, reports faster convergence to the physical cavity-flow state with fewer parameters and optimization steps than selected recent baselines.</li>
+    </ul></div>
+    <p><span class="paper-label">Evidence and caution</span><br>The Allen–Cahn example cleanly demonstrates that a small residual does not identify the desired solution branch. Evidence spans only three hand-selected PDEs, and success assumes the ancestor retains the correct branch geometry far enough out of distribution. No public code or independent replication was identified.</p>
+    <p><span class="paper-label">Read first</span><br>The three-stage algorithm and the Allen–Cahn bifurcation experiment, where residual minimization alone gives the wrong branch.</p>
+  </article>
+
+  <article class="paper-entry" id="meno">
+    <div class="entry-kicker">Neural-operator architecture · Promising, with protocol caveats</div>
+    <h2>6. MENO: Memory-Efficient Neural Operator</h2>
+    <p class="paper-byline"><strong>Shengyang Xu, Weijun Zhang, Jun Hu and Pengzhan Jin</strong> · arXiv · 23 September 2026 · Architecture and software · <a href="https://arxiv.org/abs/2609.27739" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/jpzxshi/MENO" target="_blank" rel="noopener">Code ↗</a></p>
+    <p><span class="paper-label">Why it matters</span><br>Resolution-dependent activation memory is a serious barrier for neural operators on large meshes and point clouds. MENO avoids integration operators during training and encodes functions defined on different manifolds into fixed latent representations.</p>
+    <div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+      <li>Builds an integration-free operator around a Manifold Function Encoder, making the claimed training-memory footprint independent of input discretization resolution.</li>
+      <li>Supports arbitrary discretizations, variable geometries and cross-geometry mappings whose inputs and outputs live on different manifolds.</li>
+      <li>Benchmarks cross/single-geometry Poisson, NASA Common Research Model aerodynamics and AhmedML vehicle flow.</li>
+      <li>Reports best accuracy on the Poisson and NASA-CRM tests and second-best accuracy on AhmedML.</li>
+      <li>On AhmedML, reports 1.94 GB peak memory for the 12.1M-parameter model, while the configured PCNO exceeds an 80 GB GPU limit.</li>
+      <li>Releases single-command reproduction scripts for all numerical examples.</li>
+    </ul></div>
+    <p><span class="paper-label">Evidence and caution</span><br>Public code, explicit memory measurements and geometry-diverse datasets are valuable. Several competing accuracy numbers are imported from prior papers rather than rerun uniformly; PCNO is not retuned after its out-of-memory failure. More seriously, where no validation set exists, the authors select the checkpoint with the best test accuracy, introducing optimistic selection bias. Independent validation is absent.</p>
+    <p><span class="paper-label">Read first</span><br>The memory-independence argument in Section 3, Table 6 for AhmedML, and the checkpoint-selection protocol immediately before interpreting accuracy rankings.</p>
+  </article>
+
+  <aside class="category-note"><strong>Signal versus hype.</strong> This week’s evidence supports conditional, not universal, advantages for AI in scientific computing. Learned surrogates are most useful when they bypass sequential iterations or predict a reduced quantity, while classical solvers remain superior for stringent accuracy and verification. Automated code generation becomes credible only when compilation is followed by executable and physical tests. None of the selected work removes the need for numerical baselines, expert validation or out-of-distribution safeguards.</aside>
+  <p class="editorial-note">Selection and commentary are editorial. Reported numerical results are claims made by the cited authors and are distinguished from independent validation.</p>
+  <nav class="digest-nav" aria-label="Math and AI digest issues"><a href="2026-09-18-math-ai-digest.html">← Previous issue</a><a href="../math-ai.html">All Math &amp; AI issues</a><span aria-current="page">Latest issue</span></nav>
+</main>
+
+<footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer>
+</body>
+</html>
