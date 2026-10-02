@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numerical Optimization Digest — Issue 8 · 2 October 2026</title>
+<meta name="description" content="Issue 8: proximal spectral gradients, retraction-based projection, Fisher trust regions, PINN gradient surgery, and quantization-aware updates.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="../style.css"></head><body>
+<header class="site-header"><div class="header-inner"><p class="site-name"><a href="../index.html">Hassan Mohammad</a></p><nav class="site-nav" aria-label="Primary"><ul><li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li><li><a href="../people.html">People</a></li><li><a href="../news.html" class="active">News</a></li><li><a href="../math-ai.html">Math &amp; AI</a></li><li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li><li><a href="../contact.html">Contact</a></li></ul></nav></div></header>
+<main class="digest-article">
+<p class="eyebrow">Numerical Optimization Digest · Issue 8</p>
+<h1>Proximal spectral gradients, geometric search, and stable learning updates</h1>
+<div class="article-meta">Published <time datetime="2026-10-02">2 October 2026</time> · Curated by Hassan Mohammad</div>
+<p class="coverage">Coverage: 25 September–1 October 2026, using primary-source publication/posting dates. One verified publisher paper and four independently selected arXiv papers. Google Scholar alerts received during the week were screened and deduplicated.</p>
+<section class="digest-section" aria-labelledby="peer-reviewed-heading">
+<h2 id="peer-reviewed-heading" class="section-title">Peer-reviewed</h2>
+<p class="section-intro">Up to seven papers from Springer Nature, Elsevier, Taylor &amp; Francis, SIAM and Wiley may be selected. This issue includes one paper with verified publication date and accessible primary-source claims.</p>
+<article class="paper-entry">
+<h3>1. Convergent simulated annealing generalized Barzilai-Borwein gradient method for nonsmooth optimization</h3>
+<p class="paper-byline"><strong>Jiawei Xu, Bo He, Chengcheng Yan, Xu Zhang and Zheng Peng</strong> · Numerical Algorithms · Springer Nature · First online/posted 25 September 2026 · <a href="https://link.springer.com/article/10.1007/s11075-026-02494-6" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Gradient methods · nonconvex optimization · global convergence · proximal methods</p>
+<p><span class="paper-label">Why it matters</span><br>A practical combination of spectral stepsizes and proximal updates for composite objectives, with an annealing strategy to influence acceptance.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li>Method: Combines proximal gradients, Barzilai–Borwein stepsizes and simulated annealing for a smooth, possibly nonconvex term plus a convex nonsmooth term.</li>
+<li>Theory: The authors establish global convergence under appropriate conditions and analyze iteration complexity for reaching an epsilon-stationary point.</li>
+<li>Evidence: Numerical experiments are reported; the accessible abstract does not specify benchmark-level results.</li>
+<li>Qualification: Full text is subscription restricted. No exact complexity exponent or detailed assumptions are asserted here.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>Algorithm 1, then the convergence assumptions and epsilon-stationarity complexity result in the full paper.</p>
+</article>
+</section>
+<section class="digest-section" aria-labelledby="arxiv-heading">
+<h2 id="arxiv-heading" class="section-title">arXiv</h2>
+<p class="section-intro">Four papers selected separately from the publisher ceiling. Conference acceptance reported on arXiv is stated explicitly; these entries are categorized by their arXiv source.</p>
+<article class="paper-entry">
+<h3>1. Retraction-Based Gradient Projection Algorithms on Manifolds</h3>
+<p class="paper-byline"><strong>Conglong Xu and Hao Wu</strong> · arXiv:2609.30885 · First online/posted 25 September 2026 · <a href="https://arxiv.org/abs/2609.30885" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Gradient methods · convergence · numerical linear algebra</p>
+<p><span class="paper-label">Why it matters</span><br>Extends projected-gradient reasoning to a retraction-specific notion of convexity, with applications to low-rank computation.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li>Theory: Defines retraction-specific convex sets and establishes convergence for gradient projection with several stepsize rules.</li>
+<li>Application: Uses the framework for weighted low-rank approximation.</li>
+<li>Evidence: Image-completion experiments provide numerical validation of the convergence analysis.</li>
+<li>Qualification: The guarantees use the paper’s retraction-based convexity framework; they do not establish convergence for arbitrary nonconvex manifold problems.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>The definitions of retraction-specific convexity, convergence results for each stepsize rule, and weighted low-rank examples.</p>
+</article>
+
+<article class="paper-entry">
+<h3>2. Bayesian Optimization with Fisher Information Geometry: Gradient Bounds and Trust-Region Methods</h3>
+<p class="paper-byline"><strong>Saksham Kiroriwal, Julius Pfrommer and Jürgen Beyerer</strong> · arXiv:2609.31107 · Authors report acceptance at NeurIPS 2026 · First online/posted 25 September 2026 · <a href="https://arxiv.org/abs/2609.31107" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Trust-region methods · gradient analysis · optimization in machine learning</p>
+<p><span class="paper-label">Why it matters</span><br>Connects local surrogate sensitivity to acquisition-function gradients, suggesting a principled scaling rule for high-dimensional search.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li>Theory: Pulling back the Fisher metric through the posterior map gives a sensitivity tensor and an upper bound for gradients of reparameterizable acquisition functions.</li>
+<li>Method: FITR replaces kernel-lengthscale scaling with local pullback-Fisher weights.</li>
+<li>Evidence: Competitive performance is reported on squared-exponential GP benchmarks; gains with non-isotropic surrogates depend on the task.</li>
+<li>Qualification: An acquisition-gradient bound is not a general global-convergence guarantee for Bayesian optimization.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>The pullback-metric gradient bound, FITR construction, and the comparison across surrogate families.</p>
+</article>
+
+<article class="paper-entry">
+<h3>3. Gradient Surgery for Physics-Informed Neural Networks</h3>
+<p class="paper-byline"><strong>Thomas Borsani and Giuseppe Di Fatta</strong> · arXiv:2609.30966 · Authors report acceptance at ACML 2026 · First online/posted 25 September 2026 · <a href="https://arxiv.org/abs/2609.30966" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Gradient methods · nonconvex optimization · scientific computing</p>
+<p><span class="paper-label">Why it matters</span><br>Addresses interference among loss components in PDE-informed training, a useful bridge between optimization methodology and scientific machine learning.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li>Observation: Across four benchmark problems, the authors identify phases with alternating angle-based and magnitude-based gradient conflict.</li>
+<li>Method: PAM-GS adapts gradient surgery to the observed type of task interference.</li>
+<li>Evidence: Four PDE benchmarks show competitive solution accuracy and strong task-balanced performance, outperforming alternatives on most problems.</li>
+<li>Qualification: These are benchmark findings; the abstract supplies no general convergence theorem or universal accuracy guarantee.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>The conflict-phase analysis, PAM-GS update rule, and per-problem comparisons of solution error and task balance.</p>
+</article>
+
+<article class="paper-entry">
+<h3>4. Q-MINO: A Minimal-Norm Method for Quantization-Aware Training</h3>
+<p class="paper-byline"><strong>Don Li</strong> · arXiv:2610.00738 · First online/posted 30 September 2026 · <a href="https://arxiv.org/abs/2610.00738" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Nonconvex optimization · gradient methods · convergence analysis · optimization in machine learning</p>
+<p><span class="paper-label">Why it matters</span><br>Uses recent optimization states to stabilize surrogate-gradient updates when low-bit quantization causes oscillations.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul>
+<li>Method: A temporal bundle combines gradient consensus, state-drift regularization and an alignment constraint to produce minimum-norm directions.</li>
+<li>Computation: A warm-started Frank–Wolfe procedure solves the constrained update subproblem, with a feasible fallback initialization.</li>
+<li>Theory: The authors claim asymptotic neighborhood convergence through a stochastic Lyapunov–Kurdyka–Łojasiewicz framework.</li>
+<li>Qualification: Neighborhood convergence does not establish convergence to an exact stationary point; the assumptions and quantization dependence require scrutiny.</li>
+</ul></div>
+<p><span class="paper-label">Read first</span><br>The constrained direction subproblem, stochastic Lyapunov–KL assumptions, and experiments across quantization levels.</p>
+</article>
+</section>
+<aside class="category-note"><strong>Scholar alert screening.</strong> The 28 September recommendation supplied the included Barzilai–Borwein paper. The 1 October recommendation for <a href="https://arxiv.org/abs/2609.30212">Anchored Extra-Proximal Methods</a> was first posted on 24 September (UTC), before this issue’s source-date window. The 27 September recommendation for <a href="https://arxiv.org/abs/2609.26581">Polyak-Type Extragradient Methods</a> was first posted on 22 September and is likewise outside the window. The recommended <a href="https://onlinelibrary.wiley.com/doi/10.1002/mma.70969">three-term modified PRP paper</a> has a Wiley version-of-record date of 18 September. Other alerts, including the symmetric PRP and partial-Hessian proximal Newton papers, were not included because their primary-source date and full bibliographic verification could not be completed. Papers from publishers outside the agreed five-publisher group were not counted in the publisher section.</aside>
+<p class="editorial-note">Priorities remain unconstrained optimization, gradient and conjugate-gradient methods, quasi-Newton methods, line search, global convergence, convergence rates, nonconvex optimization, nonlinear equations, nonlinear least squares, monotone operator equations, logistic regression, signal processing and optimization in machine learning. They guide ranking rather than impose hard exclusions. No verified selection here focuses on nonlinear least squares or logistic regression.</p>
+<p class="editorial-note">Selection is a verified shortlist, not an exhaustive publisher census. Access and search limitations prevented verification of some candidates; a short section does not mean those publishers released no relevant papers. Summaries are based on accessible primary-source abstracts and metadata, with author claims distinguished from independent validation. Detailed rates, assumptions and benchmark metrics are not inferred when unavailable.</p>
+<nav class="digest-nav" aria-label="Digest issues"><a href="2026-09-25-numerical-optimization-digest.html">← Issue 7</a><a href="../news.html">All issues</a><span aria-current="page">Latest issue</span></nav>
+</main>
+<footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer></body></html>
