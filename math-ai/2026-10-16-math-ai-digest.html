@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathematics &amp; AI Digest — 16 October 2026</title>
+<meta name="description" content="Math and AI digest: diagnosis-driven numerical agents, validated multiphysics code generation, semantic autoformalization, metriplectic neural operators, symbolic-regression evaluation and reinforced equation discovery.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head><body>
+<header class="site-header"><div class="header-inner">
+<p class="site-name"><a href="../index.html">Hassan Mohammad</a></p>
+<nav class="site-nav" aria-label="Primary"><ul>
+<li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li><li><a href="../people.html">People</a></li><li><a href="../news.html">News</a></li><li><a href="../math-ai.html" class="active">Math &amp; AI</a></li><li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li><li><a href="../contact.html">Contact</a></li>
+</ul></nav></div></header>
+<main class="digest-article">
+<p class="eyebrow">Mathematics &amp; Artificial Intelligence · Issue 5</p>
+<h1>From code generation to numerical and mathematical verification</h1>
+<div class="article-meta">Published <time datetime="2026-10-16">16 October 2026</time> · Curated by Hassan Mohammad</div>
+<p class="coverage">Coverage: substantive releases from 25 September–15 October 2026. The 2 and 9 October issues were not published, so Issue 4 remains the deduplication boundary. Six developments met the threshold. The strongest progress is not more fluent output, but systems that diagnose numerical failure, compare generated solvers with independent implementations, or enforce mathematical structure by construction.</p>
+
+<section class="reading-order" aria-labelledby="reading-order-title"><h2 id="reading-order-title">Reading order</h2><ol>
+<li><a href="#adsd">Training Numerical Intelligence via Auto-Diagnosis and Skill Discovery</a> — most relevant to numerical solvers.</li>
+<li><a href="#multiphysics">LLM-assisted multiphysics models</a> — strongest end-to-end scientific-code validation.</li>
+<li><a href="#aiprover">AIProver and LoCoBench</a> — strongest autoformalization system and semantic evaluation.</li>
+<li><a href="#poisson-generic">Poisson-GENERIC neural operators</a> — strongest mathematical-structure result.</li>
+<li><a href="#symbolicarena">SymbolicArena</a> — strongest symbolic-regression benchmark contribution.</li>
+<li><a href="#rasr">Reinforced Amortized Symbolic Regression</a> — promising accuracy–complexity alignment.</li>
+</ol></section>
+
+<article class="paper-entry" id="adsd">
+<div class="entry-kicker">Numerical intelligence · Strong controlled evidence · Read first</div>
+<h2>1. Training Numerical Intelligence via Auto-Diagnosis and Skill Discovery</h2>
+<p class="paper-byline"><strong>Peter Chen and Wotao Yin</strong> · arXiv · 2 October 2026 · Agent framework and benchmark study · <a href="https://arxiv.org/abs/2610.03872" target="_blank" rel="noopener">Paper ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Most coding agents can patch syntax but cannot identify why a nonlinear or discretized solver is inaccurate, unstable or slow. ADSD makes diagnosis the intermediate representation: it first attributes failure to numerical causes, then searches for an appropriate method and packages the improvement as a reusable skill.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Introduces a diagnosis–discovery–implementation loop rather than unconstrained code editing.</li>
+<li>Tests power-flow equations, AC optimal-power-flow control, stiff ODEs and heterogeneous diffusion PDEs, covering nonlinear algebra, optimization, time integration and discretization.</li>
+<li>Builds reusable solver skills from diagnosed failures and evaluates transfer to unseen problem instances, grid topologies and operating regimes.</li>
+<li>On GOC-500 power flow, reports nearly a 71-fold reduction in mean solver error; other tasks test accuracy, robustness and efficiency rather than execution alone.</li>
+<li>Uses solver traces and numerical outcomes as feedback, aiming to improve the algorithm—not merely rewrite its implementation.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The cross-domain design and transfer tests make this more consequential than a single code-generation demonstration. The reported gains remain author-run, however, and the abstract does not advertise a public repository. Success depends on whether the diagnostic vocabulary already contains the relevant failure mechanism; four curated domains do not establish open-ended numerical-method discovery. No independent replication was identified.</p>
+<p><span class="paper-label">Read first</span><br>The algorithm defining diagnosis and skill discovery, then the GOC-500 transfer experiment and the per-domain ablations separating diagnosis from direct repair.</p>
+</article>
+
+<article class="paper-entry" id="multiphysics">
+<div class="entry-kicker">Scientific-code generation · Strong application evidence</div>
+<h2>2. LLM-Assisted Generation of Transparent, Open-Source Multiphysics Models of Electrochemical Devices</h2>
+<p class="paper-byline"><strong>Sebastian Castro, Maya F. Schuchert, Spencer A. McCluskey, Eric W. Lees and Justin C. Bui</strong> · arXiv · 7 October 2026 · Research paper and open implementation · <a href="https://arxiv.org/abs/2610.10320" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/Sebobbit/CO2R-Bulk-Scale-Model" target="_blank" rel="noopener">Code, guides and logs ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>This is a credible workflow for generated scientific software: a researcher specifies equations, parameters, discretization and stop gates; the agent implements the model; independent builds and a separate simulator test the numerical result.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Defines a machine-readable guide for a stiff, nonlinear one-dimensional porous-electrode CO₂-reduction model.</li>
+<li>Produces independent open-source Julia builds, including autonomous runs, and compares them with an equivalent COMSOL model.</li>
+<li>Across 44 common potentials, reports CO-current RMSD of 2.27 mA cm⁻²—about 0.7% of the roughly 330 mA cm⁻² peak—and pooled inter-build RMSD of 0.12 mA cm⁻².</li>
+<li>Plants specification errors to probe debugging and releases staged source, guides, dialogues, simulated data and exported COMSOL results.</li>
+<li>Reports competitive solve time at matched degrees of freedom while acknowledging that solver, discretization and environment differences prevent a clean speed ranking.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>Independent builds, COMSOL comparison, planted errors and public artifacts make the study unusually inspectable. It still covers one steady, 1D, isothermal cathode model. A consistently wrong physical assumption can pass all implementation checks, and COMSOL agreement is not experimental validation of the modeled physics. No external replication has yet been reported.</p>
+<p><span class="paper-label">Read first</span><br>Figure 3 and “Agreement with COMSOL and across builds,” then the planted-error study and repository implementation guide.</p>
+</article>
+
+<article class="paper-entry" id="aiprover">
+<div class="entry-kicker">Autoformalization · Strong author-reported evidence</div>
+<h2>3. AIProver: Agentic Auto-Formalization of Mathematical Research via Certificate-Driven Evolving Harness</h2>
+<p class="paper-byline"><strong>Prithwish Jana, Viet Bach Hoang, Logan Luna, Viresh Pati, Akash Singirikonda, Cy Xie, Lisa Carbone, Wuyang Chen, Walter Moreira, Joe Stubbs, Sriram Vishwanath and Vijay Ganesh</strong> · arXiv · 4 October 2026 · Agentic system and benchmark · <a href="https://arxiv.org/abs/2610.05367" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://jprithwish.github.io/AIProver/" target="_blank" rel="noopener">Project page ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>A Lean compiler verifies a term against a formal statement, not whether that statement preserves the intended mathematics. AIProver explicitly scores type correctness, proof completeness and semantic correctness, closer to the actual autoformalization problem.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Alternates post-training of a 119B open model with HarnessEvolve, certificate-driven evolutionary search over the tool-calling workflow.</li>
+<li>Introduces LoCoBench: 58,913 instances from Mathlib, CSLib, Mizar and bounded arithmetic, with a 771-problem validation split lacking public Lean theorem–proof pairs.</li>
+<li>Compares 39 systems and reports pass@4 semantic correctness rising from 15.7% for its base to 36.7% after joint model/harness optimization.</li>
+<li>As agent skills, reports semantic-correctness gains from 41.9% to 79.8% for Claude Code and 34.1% to 62.4% for Codex.</li>
+<li>Includes ablations for supervised alignment, symbolic-feedback reinforcement learning and harness evolution, with cost reporting.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The semantic metric and broad comparison are strengths. The source mathematics may still appear in model training even when Lean pairs do not, and benchmark construction, semantic judging and evaluation remain author controlled. Headline skill results rely on proprietary agents and a complex orchestration stack. Independent replication and a complete artifact audit are still needed.</p>
+<p><span class="paper-label">Read first</span><br>The LoCoBench construction and semantic-correctness criteria, followed by the main comparison and HarnessEvolve ablations.</p>
+</article>
+
+<article class="paper-entry" id="poisson-generic">
+<div class="entry-kicker">Structure-preserving operator learning · Strong theory, controlled numerics</div>
+<h2>4. Poisson-GENERIC Neural Operators: Exact Metriplectic Structure in Function Space via Casimir Entropies</h2>
+<p class="paper-byline"><strong>Jason Sulskis and Sathya Ravi</strong> · arXiv, under review · 4 October 2026 · Method and theory paper · <a href="https://arxiv.org/abs/2610.05570" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://anonymous.4open.science/r/Poisson-GENERIC-Neural-Operators-F4C4" target="_blank" rel="noopener">Notebooks ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Low one-step error does not prevent PDE surrogates from violating energy or entropy laws during rollout. This design makes Poisson structure, degeneracy and dissipation architectural identities rather than loss penalties.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Uses Casimir entropy on an augmented state and a compatible Lie–Poisson pencil, avoiding projections that forfeit the Jacobi identity.</li>
+<li>Factors friction as M=AAᵀ with pointwise energy degeneracy and Onsager parity, permitting diffusion and damping while excluding transport.</li>
+<li>Proves continuous first/second laws, exact heat and damped-wave friction representability and a conditional mechanical-energy bound.</li>
+<li>Adds a discrete-gradient integrator with exact discrete conservation and entropy production when the fixed-point solve converges.</li>
+<li>Across four periodic PDEs, three backbones and three seeds, wins 61 of 72 same-backbone comparisons and includes two structural ablations.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The guarantees, controlled baselines, diagnostics, ablations and self-contained notebooks are substantial. Tests use band-limited periodic equations and ten-frame rollouts; the Lie–Poisson Jacobi guarantee is restricted to the resolved band. Training costs 25–40 times an unconstrained operator. Exact structure is not accuracy when the physical system lies outside the assumed class, and independent validation is absent.</p>
+<p><span class="paper-label">Read first</span><br>Theorems 1 and 3, Table 1’s structural residuals, and the limitations section.</p>
+</article>
+
+<article class="paper-entry" id="symbolicarena">
+<div class="entry-kicker">Symbolic-regression benchmark · Strong evaluation design</div>
+<h2>5. SymbolicArena: A Unified Infrastructure for Benchmark Distillation and Dynamic Evaluation in Symbolic Regression</h2>
+<p class="paper-byline"><strong>Ziwen Zhang, Xiju Wu, Yuheng Jing, Runxiang Wang, Boxiao Wang, Yifan Zang, Yifan Zhang, Yang Wang, Kai Li, Yifan Zhang, Huilin Xu and Jian Cheng</strong> · arXiv / submitted to ICLR 2027 · 28 September 2026 · Benchmark infrastructure · <a href="https://arxiv.org/abs/2609.35113" target="_blank" rel="noopener">Paper ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Symbolic-regression rankings often mix incompatible tasks and reward numerical fit without testing recovery of the generating expression. SymbolicArena standardizes execution and treats benchmark reduction as a measurable approximation problem.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Standardizes 664 heterogeneous tasks with executable ground-truth expressions and unified algorithm adapters.</li>
+<li>Distills the collection to Core50 under explicit coverage and balance constraints, reducing workload by 92.5%.</li>
+<li>Tests preservation of algorithm discrimination and reports 72.6–86.7% lower approximation error than alternative selectors.</li>
+<li>Adds numerical, symbolic, complexity and search-trajectory evaluation axes.</li>
+<li>Documents a substantial gap between fitting sampled data and recovering the underlying equation.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>Executable ground truth, selector baselines and full-versus-distilled comparisons strengthen the claim. Core50 is optimized against today’s task and method population; future algorithms may alter its discriminative value. The arXiv record advertises ancillary code and computational results, but no independently maintained repository or replication was identified.</p>
+<p><span class="paper-label">Read first</span><br>The distillation objective, full-set/Core50 agreement experiment and numerical-fit versus symbolic-recovery analysis.</p>
+</article>
+
+<article class="paper-entry" id="rasr">
+<div class="entry-kicker">Symbolic discovery · Promising, reproducibility pending</div>
+<h2>6. Improving Neural Symbolic Regression with a Diverse Prior and Post-training Alignment</h2>
+<p class="paper-byline"><strong>David Otte, Jörg K. H. Franke and Frank Hutter</strong> · arXiv · 13 October 2026 · Method paper · <a href="https://arxiv.org/abs/2610.17994" target="_blank" rel="noopener">Paper ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Neural symbolic regression amortizes combinatorial search but often fails on noisy real data. RASR targets two plausible causes: mismatch between synthetic pretraining and real tabular data, and token-likelihood training that does not reflect held-out fit or expression simplicity.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Builds a synthetic prior with tabular-foundation-model inputs, data-conditioned constants, structured heteroscedastic noise and standardized variables.</li>
+<li>Uses supervised expression pretraining followed by reinforcement learning on held-out fit with an explicit expression-size penalty.</li>
+<li>Reports the best mean test-R² rank among evaluated methods on the black-box track of SRBench 2.0.</li>
+<li>Trains three complexity-penalty variants that occupy much of the reported accuracy–complexity Pareto front.</li>
+<li>Reports stronger exact-expression recovery on Strogatz and competitive performance on Feynman.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The use of SRBench 2.0, exact-recovery suites and explicit complexity trade-offs is appropriate. The abstract does not advertise code or weights, so reproduction is presently uncertain. Results depend on the benchmark distribution, expression vocabulary and compute allocated to baselines; no independent validation exists.</p>
+<p><span class="paper-label">Read first</span><br>The synthetic-prior ablation, reinforcement-learning objective and accuracy–complexity Pareto analysis.</p>
+</article>
+
+<section class="signal-hype" aria-labelledby="signal-hype-title"><h2 id="signal-hype-title">Signal versus hype</h2>
+<p>The durable signal is a shift from fluent generation to inspectable numerical and mathematical feedback: diagnose solver failure before editing, validate generated implementations against independent models, assess semantic fidelity rather than Lean compilation alone, and encode physical structure exactly. This evidence does <strong>not</strong> establish autonomous numerical-method research, error-free scientific code, faithful research autoformalization in the wild, or universally superior learned PDE and symbolic models.</p></section>
+
+<nav class="digest-nav" aria-label="Math and AI digest issues"><a href="2026-09-25-math-ai-digest.html">← Previous issue</a><a href="../math-ai.html">All Math &amp; AI issues</a><span aria-current="page">Latest issue</span></nav>
+</main><footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer></body></html>
