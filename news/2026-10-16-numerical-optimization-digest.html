@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numerical Optimization Digest — Issue 9 · 16 October 2026</title>
+<meta name="description" content="Issue 9: proximal augmented Lagrangians, multistage decomposition, sharp nonconvex oracle bounds, block stochastic gradients, and rate-transfer analysis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site-header"><div class="header-inner">
+  <p class="site-name"><a href="../index.html">Hassan Mohammad</a></p>
+  <nav class="site-nav" aria-label="Primary"><ul>
+    <li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li>
+    <li><a href="../people.html">People</a></li><li><a href="../news.html" class="active">News</a></li>
+    <li><a href="../math-ai.html">Math &amp; AI</a></li>
+    <li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+  </ul></nav>
+</div></header>
+<main class="digest-article">
+<p class="eyebrow">Numerical Optimization Digest · Issue 9</p>
+<h1>Nonconvex stationarity bounds, augmented Lagrangians, and stochastic gradients</h1>
+<div class="article-meta">Published <time datetime="2026-10-16">16 October 2026</time> · Curated by Hassan Mohammad</div>
+<p class="coverage">Weekly coverage: first-online publications and first-posted preprints from 9–15 October 2026 (Korea-local issue week). Two peer-reviewed papers and four arXiv-only preprints cleared the threshold. The archive has no issue for 2–8 October; that week is not silently folded into this issue.</p>
+<section class="digest-section" aria-labelledby="peer-reviewed-heading"><h2 id="peer-reviewed-heading" class="section-title">Peer-reviewed publications</h2>
+<p class="section-intro">Two ranked method papers from the five named publisher groups, first published online during this week.</p>
+<article class="paper-entry"><h3>0. A proximal augmented Lagrangian method for nonconvex optimization with equality and inequality constraints</h3>
+<p class="paper-byline"><strong>Adeyemi D. Adeoye, Puya Latafat and Alberto Bemporad</strong> · Computational Optimization and Applications · Springer Nature · First online 12 October 2026 · DOI <a href="https://doi.org/10.1007/s10589-026-00844-7">10.1007/s10589-026-00844-7</a> · <a href="https://link.springer.com/article/10.1007/s10589-026-00844-7" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Nonconvex optimization · proximal methods · global convergence · nonlinear programming</p>
+<p><span class="paper-label">Why it matters</span><br>The method handles smooth nonconvex objectives, a proximable convex nonsmooth term, and nonlinear equalities and inequalities, with an adaptive penalty and proximal schedule that addresses ill-conditioned inner solves.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul><li><strong>Proved:</strong> Theorem 1 obtains an ε-KKT point in finitely many iterations for every ε above the limiting inner-solve tolerance, under the paper’s problem and parameter assumptions; the analysis relies on a feasible starting point.</li><li><strong>Proved:</strong> Corollary 1 carries finite ε-KKT termination to the nonproximal augmented Lagrangian variant. The paper does not establish a worst-case iteration-complexity exponent.</li><li><strong>Empirical:</strong> On 53 CUTEst QPs (44 convex, nine nonconvex), the authors compare with alpaqa using PANOC and proximal-gradient inner solvers, measuring success and gradient evaluations. In jointly successful PANOC runs alpaqa is cheaper on 35 of 48; with proximal gradients FS-P-ALM is cheaper on 26 of 42.</li><li><strong>Qualification:</strong> A phase-I solve is needed when a feasible point is unavailable; the reported dense automatic-differentiation implementation limits the largest tested QPs.</li></ul></div>
+<p><span class="paper-label">Read first</span><br>Algorithm 1, Theorem 1 and Corollary 1; then Section 6.6 and Figures 3–4 for the CUTEst comparison.</p></article>
+<article class="paper-entry"><h3>1. On Distributionally Robust Multistage Convex Optimization: New Algorithms and Complexity Analysis</h3>
+<p class="paper-byline"><strong>Shixuan Zhang and Xu Andy Sun</strong> · SIAM Journal on Optimization · SIAM · First online 15 October 2026 · DOI <a href="https://doi.org/10.1137/25M1761690">10.1137/25M1761690</a> · <a href="https://epubs.siam.org/doi/10.1137/25M1761690" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Convex optimization · cutting-plane methods · complexity analysis · stochastic optimization</p>
+<p><span class="paper-label">Why it matters</span><br>The paper changes which stages a decomposition algorithm visits, reducing the stated dependence on the number of stages in the subproblem count for distributionally robust multistage convex models.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul><li><strong>Algorithm:</strong> The authors introduce nonconsecutive dual dynamic programming (NDDP), which adaptively explores stages rather than visiting them in the usual consecutive order.</li><li><strong>Theory:</strong> Their complexity analysis reduces the number-of-stages dependence in subproblem complexity from quadratic to linear for the model and assumptions they study.</li><li><strong>Empirical:</strong> The authors report two distributionally robust multistage examples to illustrate efficiency; the accessible publisher abstract does not give benchmark names, baselines, or numerical metrics, so no quantified performance advantage is asserted here.</li><li><strong>Qualification:</strong> The guarantee concerns subproblem complexity for convex multistage models, not a general nonconvex or unconstrained solver.</li></ul></div>
+<p><span class="paper-label">Read first</span><br>The NDDP algorithm and its stage-complexity proof; then the two numerical examples in the full paper.</p></article>
+</section>
+<section class="digest-section" aria-labelledby="arxiv-heading"><h2 id="arxiv-heading" class="section-title">arXiv preprints</h2>
+<p class="section-intro">Four independently ranked preprints. Their claims are preliminary until peer review and replication.</p>
+<article class="paper-entry"><h3>0. Optimal Algorithms for Nonsmooth Nonconvex Stochastic Optimization with Constraints</h3>
+<p class="paper-byline"><strong>Gon Buzaglo and Guy Kornowski</strong> · arXiv:2610.13787 · First posted 9 October 2026 · <a href="https://arxiv.org/abs/2610.13787" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Nonconvex optimization · stochastic-gradient methods · oracle complexity · constrained optimization</p>
+<p><span class="paper-label">Why it matters</span><br>It addresses whether convex constraints and nonsmoothness impose extra oracle cost when seeking the constrained Goldstein stationarity notion.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul><li><strong>Upper bounds:</strong> The authors give projection-based and projection-free stochastic-gradient algorithms with Õ(δ<sup>−1</sup>ε<sup>−3</sup>) query complexity for a (δ,ε)-Goldstein stationary point.</li><li><strong>Zeroth-order bound:</strong> Their scalar-query algorithm achieves Õ(dδ<sup>−1</sup>ε<sup>−3</sup>) queries; the dimension dependence matches the lower bound in the stated oracle model.</li><li><strong>Lower bound:</strong> Their Frank–Wolfe-gap construction, which also applies to smooth problems, establishes optimality of the stated stochastic-gradient rate.</li><li><strong>Qualification:</strong> The result uses convex constraints and this specific approximate stationarity criterion; the tilde hides logarithmic factors. It is an arXiv preprint.</li></ul></div>
+<p><span class="paper-label">Read first</span><br>The projection and projection-free algorithm statements, the Frank–Wolfe-gap lower bound, and the reduction to online linear optimization.</p></article>
+<article class="paper-entry"><h3>1. On Global Joint Lower Bounds in Zeroth-Order Nonconvex Optimization</h3>
+<p class="paper-byline"><strong>Yuxuan Xia and Xiao-Tong Yuan</strong> · arXiv:2610.19652 · First posted 14 October 2026 · <a href="https://arxiv.org/abs/2610.19652" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Nonconvex optimization · zeroth-order methods · oracle complexity · machine-learning optimization</p>
+<p><span class="paper-label">Why it matters</span><br>This complements the preceding preprint by testing whether the dimension, Goldstein radius, and stationarity tolerance are jointly unavoidable under a strong, fully adaptive scalar-query model.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul><li><strong>Smooth lower bound:</strong> The authors prove Ω(dL<sub>0</sub><sup>2</sup> min{ΔH,L<sub>0</sub><sup>2</sup>}/ε<sup>4</sup>) scalar queries under a globally lower-bounded smooth population objective and a second-moment condition on sample Lipschitz constants.</li><li><strong>Reduction:</strong> A smooth construction yields a joint minimax lower bound in d, δ, and ε for Goldstein stationarity under explicit dimension and accuracy conditions.</li><li><strong>Oracle strength:</strong> The lower bound allows adaptive full-space queries, sample-label selection, repeated use of a sampled function, and unrestricted output points; a separate exact-value lower bound covers randomized algorithms.</li><li><strong>Qualification:</strong> The joint optimality statement applies in the authors’ specified high-dimensional and small-accuracy regimes; it is a lower-bound paper without an implementable solver.</li></ul></div>
+<p><span class="paper-label">Read first</span><br>The main lower-bound theorems, the smooth-to-Goldstein reduction, and the adaptive reusable-sample scalar-oracle construction.</p></article>
+<article class="paper-entry"><h3>2. On the convergence of doubly stochastic block gradient descent method for linear inverse problems</h3>
+<p class="paper-byline"><strong>Yuxin Xia and Zehui Zhou</strong> · arXiv:2610.15399 · First posted 11 October 2026 · <a href="https://arxiv.org/abs/2610.15399" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Stochastic-gradient methods · convergence rates · numerical linear algebra · inverse problems</p>
+<p><span class="paper-label">Why it matters</span><br>The update samples both one observation and one coordinate block, addressing separate data and signal-size bottlenecks in ill-posed linear inverse problems.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul><li><strong>Proved:</strong> The authors establish regularization under a priori early stopping, with convergence rates when a source condition and a condition on the forward operator hold.</li><li><strong>Stopping:</strong> They show finite discrepancy-principle stopping with high probability and monotone expected squared error before stopping under the stated assumptions.</li><li><strong>Empirical:</strong> Section 5 uses Phillips, gravity, and Shaw Fredholm test problems; Tables 1–2 compare stopping index and reconstruction error against randomized block coordinate descent and Landweber-type variants.</li><li><strong>Qualification:</strong> The theory concerns linear Hilbert-space inverse problems and regularized early stopping, not generic nonconvex optimization.</li></ul></div>
+<p><span class="paper-label">Read first</span><br>Theorems 2.1–2.3 and Section 4’s rate proof; then Section 5 and Tables 1–2.</p></article>
+<article class="paper-entry"><h3>3. A Rate Transfer Method: Convergence Rates in Stochastic Gradient Descent via Stochastic Calculus</h3>
+<p class="paper-byline"><strong>Neil Walton</strong> · arXiv:2610.18739 · First posted 13 October 2026 · <a href="https://arxiv.org/abs/2610.18739" target="_blank" rel="noopener">Primary source ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Stochastic-gradient methods · convergence rates · optimization for machine learning</p>
+<p><span class="paper-label">Why it matters</span><br>It provides a reusable route from a continuous-time Lyapunov inequality to a finite-time discrete stochastic-gradient bound.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul><li><strong>Transfer theorem:</strong> Under moment, smoothness, and iterate-stability assumptions, Theorem 2 transfers the SDE Lyapunov estimate to SGD with an additional O(α(t)) forcing term inside the time integral.</li><li><strong>Worked results:</strong> The analysis recovers classical strongly convex SGD rates and a geometric transient plus an O(h) neighborhood for stochastic heavy ball.</li><li><strong>Qualification:</strong> The examples rederive known rates; a new optimizer still needs a suitable SDE, Lyapunov inequality, and bounded moments before this framework applies.</li></ul></div>
+<p><span class="paper-label">Read first</span><br>Theorem 2 in Section 3.2, then Sections 4.2–4.3 for SGD and stochastic heavy ball.</p></article>
+</section>
+<aside class="category-note"><strong>Google Scholar recommendations.</strong> The connected mailbox had zero Google Scholar recommendation emails in the 9–15 October Korea-time window, so zero recommendation candidates were reviewed and none were incorporated. An 8 October recommendation email and a 16 October citation alert fall outside this window.</aside>
+<p class="editorial-note"><strong>Publisher and topic screen.</strong> Springer Nature and SIAM supplied the two selected papers. No sufficiently strong, date-verified general-methodology article from Elsevier, Taylor &amp; Francis, or Wiley was selected. No selected paper centers on nonlinear least squares, logistic regression, or a new nonlinear conjugate-gradient scheme. This is a selective shortlist rather than an exhaustive publisher census.</p>
+<p class="editorial-note">Main result claims are attributed to the authors. Theorem statements, examples, and empirical comparisons are distinguished; inclusion is not independent validation. All publication and posting dates link to publisher or arXiv records.</p>
+<nav class="digest-nav" aria-label="Digest issues"><a href="2026-10-02-numerical-optimization-digest.html">← Issue 8</a><a href="../news.html">All issues</a><span aria-current="page">Latest issue</span></nav>
+</main>
+<footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer>
+</body>
+</html>
