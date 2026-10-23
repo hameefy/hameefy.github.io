@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathematics &amp; AI Digest — 23 October 2026</title>
+<meta name="description" content="Math and AI digest: failure-aware coordination for Lean proof development and mechanical numerical and vacuity checks for faithful autoformalization.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head><body>
+<header class="site-header"><div class="header-inner">
+<p class="site-name"><a href="../index.html">Hassan Mohammad</a></p>
+<nav class="site-nav" aria-label="Primary"><ul>
+<li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li><li><a href="../cv.html">CV</a></li><li><a href="../people.html">People</a></li><li><a href="../news.html">News</a></li><li><a href="../math-ai.html" class="active">Math &amp; AI</a></li><li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li><li><a href="../contact.html">Contact</a></li>
+</ul></nav></div></header>
+<main class="digest-article">
+<p class="eyebrow">Mathematics &amp; Artificial Intelligence · Issue 6</p>
+<h1>Coordinating formal proofs and checking autoformalization mechanically</h1>
+<div class="article-meta">Published <time datetime="2026-10-23">23 October 2026</time> · Curated by Hassan Mohammad</div>
+<p class="coverage">Coverage: substantive releases from 16–22 October 2026. Two developments met the threshold. This was a narrow but substantive formal-methods week: one system supplies controlled evidence that global failure-aware coordination improves Lean proof development, while the other adds numerical and vacuity checks to the still-unsolved problem of deciding whether a compiling formal statement faithfully represents its source.</p>
+
+<section class="reading-order" aria-labelledby="reading-order-title"><h2 id="reading-order-title">Reading order</h2><ol>
+<li><a href="#maestro">Maestro</a> — strongest proof-development system result.</li>
+<li><a href="#mechanical-verification">Beyond LLM Judge</a> — most important evaluation and library-engineering contribution.</li>
+</ol></section>
+
+<article class="paper-entry" id="maestro">
+<div class="entry-kicker">Formal proof development · Strong system evidence · Read first</div>
+<h2>1. Maestro: Agentic Formal Proof Development by Coordination</h2>
+<p class="paper-byline"><strong>Haoyu Li, Zeren Shui, Yuhao Zhang, Ferhat Erata, Benjamin Mikek, Murali Krishna Ramanathan and Hao Zhou</strong> · arXiv · 19 October 2026 · Agentic theorem-proving and verified-code system · <a href="https://arxiv.org/abs/2610.25920" target="_blank" rel="noopener">Paper ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Large proof tasks usually fail at the level of strategy, not Lean syntax. Maestro treats failed subgoals as information for a global coordinator: it can revise the shared proof blueprint, add reusable facts, abandon a false lemma and reallocate workers. That is closer to managing a proof-development project than sampling independent proof attempts.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Maintains a shared Lean workspace and a mutable global proof blueprint; workers return structured diagnoses such as a false lemma, bad decomposition or locally stuck proof.</li>
+<li>Coordinates asynchronous workers, propagates proved facts across branches and retracts flawed subtrees instead of preserving an initially chosen decomposition.</li>
+<li>Extends the same machinery to falsification and verified code synthesis or repair, so a machine-checked counterexample can terminate an invalid target.</li>
+<li>Evaluates four frontier language models on seven formal-mathematics and three software-verification benchmarks, against the same models in native Claude Code or Codex agents.</li>
+<li>With Claude Opus 5, reports 34 of 48 June arXivLean targets solved versus 19 for the native agent, alongside 669/672 PutnamBench, 59/60 Lean-IMO-Bench and 6/6 IMO 2026.</li>
+<li>An explicit decomposition-without-coordination ablation adds little over plain agents on FATE-X, whereas Maestro reports 91 proofs with Claude Fable 5 and 84 with GPT-5.6 Sol, plus six falsified targets for each.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The breadth of compiler-checked benchmarks, same-backbone comparisons, coordination ablation, repeated runs and disclosed computational-cost appendix make this strong system evidence. It remains author-reported and lacks independent replication. Several benchmarks are close to saturation, the strongest results use costly proprietary frontier models, and formal verification certifies the encoded target—not that the target faithfully captures the intended mathematics or software specification.</p>
+<p><span class="paper-label">Read first</span><br>Section 4.4, “Ablation: decomposition without coordination,” then the arXivLean results; use Appendices A–C to audit cost, repeated-run stability and targets the system declares false.</p>
+</article>
+
+<article class="paper-entry" id="mechanical-verification">
+<div class="entry-kicker">Autoformalization fidelity · Strong evaluation methodology · High priority</div>
+<h2>2. Beyond LLM Judge: Mechanical Verification for Agentic Autoformalization</h2>
+<p class="paper-byline"><strong>Anna Mei and Michael R. Douglas</strong> · arXiv · first published 14 October; materially revised 21 October 2026 · Evaluation method, pipeline and formal library · <a href="https://arxiv.org/abs/2610.20573" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/annamei1/FLMF-Ch7ErrFunc-Release" target="_blank" rel="noopener">Code and FLMF release ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>A Lean proof can be perfectly valid while proving the wrong translation. This work supplements semantic LLM review with checks whose failures are inspectable: evaluate formalized identities numerically and test whether a proof remains possible independently of its stated goal. For reusable mathematical libraries, that is a more useful trust model than compilation or an opaque judge score alone.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Combines semantic review, numerical evaluation and a vacuity detector; the latter replaces the target with an opaque conclusion to expose goal-independent proofs caused, for example, by contradictory hypotheses.</li>
+<li>Defines an Extract–Verify–Prove pipeline with a dependency DAG, frozen statements, human gates and explicit disposition files for equations that fail a stage.</li>
+<li>Uses the pipeline to build the Formalized Library of Mathematical Functions, a partial Lean formalization of the NIST Digital Library of Mathematical Functions.</li>
+<li>Evaluates on FLMF, Beyond Compilation and ProofNet; reported accepted-error rates are 4.8%, 1.9% and 9.2%, respectively, lower than the compared GPT-5.5, Opus 4.6, LeanScorer and FormalAlign configurations.</li>
+<li>Expert audits find source or translation defects among statements previously labeled correct: all 41 Beyond Compilation items flagged only by the numerical check contained a real defect, according to the authors’ review.</li>
+<li>Releases the Chapter 7 error-functions library and checking code, making the bindings, statements, proofs and audit artifacts inspectable.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>Three labeled datasets, explicit error counts, expert audits and released code make the evaluation unusually concrete. The method deliberately trades recall for caution: on FLMF it flags 45.1% of items labeled correct, and some vacuity flags are false alarms. Numerical sampling is not proof of semantic equivalence; it may miss a narrowed domain, isolated exceptional points or a faulty function binding. The checks currently apply mainly to numerically evaluable statements or completed proofs, and no independent replication exists.</p>
+<p><span class="paper-label">Read first</span><br>Table 2 for the accepted-error/false-alarm trade-off, followed by Section 3.3 on the vacuity check and Table 1’s gated Extract–Verify–Prove workflow.</p>
+</article>
+
+<section class="signal-hype" aria-labelledby="signal-hype-title"><h2 id="signal-hype-title">Signal versus hype</h2>
+<p>The durable signal is procedural: proof agents improve when failures can revise a global plan, and autoformalized libraries become more trustworthy when semantic judgements are supplemented by checkable numerical and logical tests. The evidence does <strong>not</strong> establish autonomous mathematical research, faithful translation by default, or a replacement for expert review. Maestro optimizes proof development for a supplied formal target; Beyond LLM Judge shows why the target itself still requires independent scrutiny.</p></section>
+
+<nav class="digest-nav" aria-label="Math and AI digest issues"><a href="2026-10-16-math-ai-digest.html">← Previous issue</a><a href="../math-ai.html">All Math &amp; AI issues</a><span aria-current="page">Latest issue</span></nav>
+</main><footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer></body></html>
