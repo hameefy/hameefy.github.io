@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathematics &amp; AI Digest — 30 October 2026</title>
+<meta name="description" content="Math and AI digest: neural-operator benchmark sensitivity, efficient theorem-proving harnesses, unified equation discovery, Lean proof automation, and scientific temporal interpolation.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head><body>
+<header class="site-header"><div class="header-inner">
+<p class="site-name"><a href="../index.html">Hassan Mohammad</a></p>
+<nav class="site-nav" aria-label="Primary"><ul>
+<li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li><li><a href="../cv.html">CV</a></li><li><a href="../people.html">People</a></li><li><a href="../news.html">News</a></li><li><a href="../math-ai.html" class="active">Math &amp; AI</a></li><li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li><li><a href="../contact.html">Contact</a></li>
+</ul></nav></div></header>
+<main class="digest-article">
+<p class="eyebrow">Mathematics &amp; Artificial Intelligence · Issue 7</p>
+<h1>Benchmark discipline, scalable proof harnesses and equation discovery</h1>
+<div class="article-meta">Published <time datetime="2026-10-30">30 October 2026</time> · Curated by Hassan Mohammad</div>
+<p class="coverage">Coverage: substantive releases from 23–29 October 2026. Six developments met the threshold. The strongest signal is methodological rather than architectural: tune baselines before claiming progress, compare theorem-proving workflows at matched models and cost, and make scientific-discovery systems inspectable through common interfaces, exact recovery criteria and kernel-checked artifacts.</p>
+
+<section class="reading-order" aria-labelledby="reading-order-title"><h2 id="reading-order-title">Reading order</h2><ol>
+<li><a href="#well-baselines">Performance of Neural Operator Baselines on The Well</a> — strongest evaluation result.</li>
+<li><a href="#h1">h1: A Taste of the Bitter Lesson in Automated Theorem Proving</a> — strongest controlled theorem-proving study.</li>
+<li><a href="#legosr">LegoSR</a> — strongest equation-discovery software contribution.</li>
+<li><a href="#vampire-hammer">Vampire-Hammer</a> — broadest Lean automation evaluation.</li>
+<li><a href="#crush">crush</a> — strongest proof-automation theory and extensibility result.</li>
+<li><a href="#iflex">iFLEX</a> — credible scientific-field interpolation method.</li>
+</ol></section>
+
+<article class="paper-entry" id="well-baselines">
+<div class="entry-kicker">Neural-operator evaluation · Strong negative result · Read first</div>
+<h2>1. Performance of Neural Operator Baselines on ‘The Well’ Dataset</h2>
+<p class="paper-byline"><strong>Yash Pincha, Andy Dimnaku, Andrew Chiang, Adarsh Ganeshram, Valentin Duruisseaux and Anima Anandkumar</strong> · arXiv · 25 October 2026 · Benchmark re-evaluation · <a href="https://arxiv.org/abs/2610.33967" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/neuraloperator/the_well_baselines" target="_blank" rel="noopener">Code ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Comparisons among learned PDE surrogates are only meaningful when the baselines have received comparable tuning. This study shows that the illustrative FNO/TFNO numbers released with The Well have been reused as if they measured architectural capability, even though modest dataset-specific tuning can move them by one or two orders of magnitude.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Retunes the same neuraloperator TFNO implementation on 17 tasks from The Well, a 15-terabyte collection spanning 16 simulation domains, under the original 12-hour single-H100 limit.</li>
+<li>Uses only one input state rather than the published baselines’ history of up to four states, making the temporal-conditioning comparison deliberately less favorable to the new runs.</li>
+<li>Obtains lower VRMSE than both published operator baselines on 15 of 17 tasks; reported displacements include 27-fold on planetswe and more than 75-fold on Rayleigh–Taylor instability.</li>
+<li>Shows that seven selected runs are still improving when the 12-hour limit expires, so the reported values mix configuration quality, optimization speed and per-step cost.</li>
+<li>On acoustic scattering, reselecting the configuration under a 36-hour budget lowers VRMSE from 0.022886 to 0.004875, another 4.7-fold reduction.</li>
+<li>Proposes benchmark-reporting practices that expose tuning effort, termination state, stochastic variation and the compute-conditioned nature of reported scores.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The fixed implementation, canonical splits, explicit search grid, per-task termination data and public code make the central sensitivity claim persuasive. This is not an architecture leaderboard: only TFNO is tuned, published baselines are not independently rerun, every selected configuration uses one seed, and one-step VRMSE does not measure long-rollout stability. The result invalidates strong conclusions drawn from under-tuned point estimates; it does not establish TFNO superiority.</p>
+<p><span class="paper-label">Read first</span><br>Table 1 for task-by-task sensitivity, Table 2 for the 12-hour versus 36-hour comparison, and Section 3.4 for the authors’ unusually explicit limitations.</p>
+</article>
+
+<article class="paper-entry" id="h1">
+<div class="entry-kicker">Formal theorem proving · Strong controlled system evidence · High priority</div>
+<h2>2. h1: A Taste of the Bitter Lesson in Automated Theorem Proving</h2>
+<p class="paper-byline"><strong>Skander Moalla, Ahmad Rammal, Niket Patel, Remi Munos and Julia Kempe</strong> · arXiv · 25 October 2026 · Theorem-proving harness and scaling study · <a href="https://arxiv.org/abs/2610.35962" target="_blank" rel="noopener">Paper ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Agentic prover papers often confound workflow design, backbone quality and inference budget. h1 asks the cleaner question: how far can a simple persistent Lean loop go when it receives efficient verifier feedback and enough test-time compute? The answer changes what should count as a credible baseline for elaborate proof orchestration.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Uses a minimal loop that edits a working Lean file, queries efficient local tools, validates the candidate and continues after failure, without prescribed planning, decomposition or specialist agents.</li>
+<li>Evaluates OpenAI, Anthropic, Google and open-weight models on PutnamBench, FATE-X, FormalQualBench, FC100-solved, recent olympiad problems and 236 conjectures marked open.</li>
+<li>Reports matched-model and cost-aware comparisons: GPT-5.2 in h1 solves all 12 Putnam 2025 formalizations for $565 total, versus a reported $1,800 cap for a multi-model specialized system.</li>
+<li>With GPT-5.6 Sol, reaches 90 FATE-X solves at a $38 per-problem cap and matches 672/672 PutnamBench coverage after targeted retries, while counting failed-attempt cost.</li>
+<li>Produces Lean proofs for eight targets marked open in Formal Conjectures and exposes several misformalizations by finding proofs or counterexamples to the written statements.</li>
+<li>Ablates tools, prompts, persistence and reflection; against native Claude Code, the efficient Lean interface and enforced validation materially improve solve counts.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>Matched-backbone comparisons, pinned benchmark revisions, SafeVerify checks, cost accounting and extensive ablations make the methodological conclusion strong. The “open” results certify the formal statements, not necessarily the intended informal conjectures or novelty of the proofs. Proprietary-model training exposure cannot be ruled out, accepted attempts can run for up to 95 active hours, and no standalone h1 implementation is linked from the paper. Independent mathematical review remains necessary.</p>
+<p><span class="paper-label">Read first</span><br>Table 2 for matched-cost workflow comparisons, Section 4 for the interface analysis, and Appendix C.2 for the exact SafeVerify acceptance procedure.</p>
+</article>
+
+<article class="paper-entry" id="legosr">
+<div class="entry-kicker">Symbolic and differential equation discovery · Substantial reproducible framework · High priority</div>
+<h2>3. LegoSR: A Unified Framework for Self-improving Agent-Guided Scientific Discovery</h2>
+<p class="paper-byline"><strong>Hao Mao, Xu T. Liu, Peng Zhao, Shuai Lu and Yuntian Chen</strong> · arXiv · 24 October 2026 · Equation-discovery framework and agent · <a href="https://arxiv.org/abs/2610.33465" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/Scientific-Artificial-Intelligence-Lab/kd" target="_blank" rel="noopener">Code and documentation ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Equation-discovery results are difficult to compare because solvers use incompatible data formats, representations and success criteria. LegoSR’s durable contribution is a common experimental layer across algebraic regression, ODE discovery and PDE discovery; its agent is useful mainly because it operates on that inspectable substrate.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Integrates SGA-PDE, DLGA-PDE, DISCOVER, EqGPT, LLM4ED, PySR and PySINDy behind one dataset, equation, reporting and checkpoint interface.</li>
+<li>Supports partially specified equations through pinned terms, free coefficients and constrained holes, allowing known physics to restrict the search space.</li>
+<li>Evaluates 134 algebraic symbolic-regression problems, 40 ODE targets and 17 PDE problems at 0%, 1% and 5% noise under explicit symbolic and coefficient-recovery rules.</li>
+<li>Compares against UNION, the coverage from 21 expert-tuned runs per problem, and a generic agent with the same language model, tools and budget.</li>
+<li>At 5% noise, LegoSR Agent recovers 16/40 ODE targets versus 12 for the generic agent, and 14/17 PDE targets versus 9, matching expert-tuned UNION on the PDE set.</li>
+<li>Releases an Apache-2.0 Python package, documentation, examples, dataset metadata, experiment tracing and resumable searches.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The executable framework, common recovery criteria, noisy-data tests and same-model agent comparison are meaningful. UNION has a much larger effective search budget than the three agent runs and is an empirical ceiling rather than an oracle. Most benchmark systems are canonical synthetic equations; exact recovery on this distribution does not imply reliable discovery from sparse experimental data. The agent and several incorporated solvers originate from the same laboratory, and no independent replication exists.</p>
+<p><span class="paper-label">Read first</span><br>Table 3 for noisy ODE/PDE recovery, Section 4.1.2 for the success criteria, and the repository’s <code>examples</code> plus <code>skills/kd</code> paths for reproducible workflows.</p>
+</article>
+
+<article class="paper-entry" id="vampire-hammer">
+<div class="entry-kicker">Lean automation · Strong large-scale tool evidence · High priority</div>
+<h2>4. Hammering with Vampire in Lean</h2>
+<p class="paper-byline"><strong>Jonas Bodingbauer and Laura Kovács</strong> · arXiv · 29 October 2026 · Lean hammer and tool-demonstration paper · <a href="https://arxiv.org/abs/2610.40310" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/vprover/vampire-hammer" target="_blank" rel="noopener">Tool ↗</a> · <a href="https://doi.org/10.5281/zenodo.23405497" target="_blank" rel="noopener">Benchmark data ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>LLM proof agents benefit directly from reliable classical automation. Vampire-Hammer connects Lean goals to the mature Vampire prover, supports complementary first- and higher-order routes, then reconstructs a proof term accepted by Lean’s kernel rather than trusting the external solver.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Uses Lean-auto for goal and premise processing, standard TPTP encodings for proof search and annotated TSTP refutations for reconstruction.</li>
+<li>Schedules first- and higher-order Vampire searches because neither encoding dominates across Lean goals.</li>
+<li>Evaluates 196,083 eligible Mathlib theorems with a 10-second allowance and the direct dependencies from each theorem’s original proof supplied as premises.</li>
+<li>Proves 96,289 theorems; 21,158 are not solved by Lean-auto+Duper, standalone Duper, Aesop, <code>simp_all</code> or <code>grind</code> within the same allowance.</li>
+<li>Reports that the union of all tools solves 124,854 theorems, so Vampire-Hammer expands rather than replaces the existing automation portfolio.</li>
+<li>Releases the implementation, per-theorem CSV results, pinned benchmark scripts and a Zenodo artifact.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The kernel-checked acceptance condition, very large common benchmark, equal timeout and released raw results provide strong tool evidence. The experiment supplies dependencies extracted from original proofs, so it measures reasoning with proof-derived premises—not end-to-end premise selection. Runtime comparisons may depend on tool engineering and hardware, and the work has not been independently reproduced.</p>
+<p><span class="paper-label">Read first</span><br>Figure 3 for unique coverage, Section 4 for premise and timeout controls, and the benchmark repository’s per-theorem CSV files.</p>
+</article>
+
+<article class="paper-entry" id="crush">
+<div class="entry-kicker">SMT-backed Lean automation · Strong theory and artifact · High priority</div>
+<h2>5. crush: Extensible Proof Automation for Lean</h2>
+<p class="paper-byline"><strong>Mike He, Dexin Zhang and Aarti Gupta</strong> · arXiv · 29 October 2026 · Proof-automation framework with mechanized metatheory · <a href="https://arxiv.org/abs/2610.40538" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/AD1024/lean-crush" target="_blank" rel="noopener">Code ↗</a> · <a href="https://github.com/AD1024/lean-crush/tree/tacas-ae" target="_blank" rel="noopener">Reproduction artifact ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Lean’s higher-order functions, inductive types and user abstractions do not map cleanly to first-order SMT. crush provides a formally justified translation for a supported higher-order fragment and, crucially, extension points for domain encodings and proof reconstruction without modifying the core pipeline.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Defunctionalizes higher-order values and applications into first-order SMT terms and mechanizes soundness of the supported translation in Lean.</li>
+<li>Offers typed metaprogramming interfaces for adding custom encodings and reconstruction rules.</li>
+<li>Supports two proof-producing routes: core-guided reconstruction from solver unsat cores and replay of solver inference certificates.</li>
+<li>Implements crush as both a tactic and a backend usable by other Lean verification systems.</li>
+<li>Evaluates 754 verification conditions across four suites against lean-auto, Duper, lean-smt and <code>grind</code>, reporting higher coverage across the targeted use cases.</li>
+<li>Releases code, mechanized proofs, benchmark data and reproduction scripts.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>A mechanized soundness result and kernel-checked reconstruction provide stronger assurance than a translator evaluated only by solve rate. The benchmark is much smaller and more verification-oriented than Vampire-Hammer’s Mathlib study. CVC5’s Alethe output does not cover every theory it can solve, built-in replay rules remain incomplete, and users may need domain-specific extensions. Results are author-run with no independent validation.</p>
+<p><span class="paper-label">Read first</span><br>Section 4 and Appendix B.5 for the defunctionalization theorem, Section 5 for the two reconstruction paths, and Section 6.3 for reconstruction failures.</p>
+</article>
+
+<article class="paper-entry" id="iflex">
+<div class="entry-kicker">Scientific machine learning · Peer-reviewed controlled evidence · Moderate confidence</div>
+<h2>6. Generative Refinement Learning for Temporal Interpolation in Scientific Machine Learning</h2>
+<p class="paper-byline"><strong>Pu Ren, Michael W. Mahoney and N. Benjamin Erichson</strong> · Transactions on Machine Learning Research / arXiv · 27 October 2026 · Residual diffusion method · <a href="https://arxiv.org/abs/2610.36751" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/paulpuren/iflex" target="_blank" rel="noopener">Code ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Simulation snapshots and observations are often stored more sparsely in time than downstream analysis requires. iFLEX uses a cheap numerical estimate as the baseline and asks a generative model to learn only its error—a reusable hybrid pattern for learned corrections to approximate scientific computations.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Linearly interpolates two endpoint fields, then uses a conditional diffusion model to generate the residual at a requested intermediate time.</li>
+<li>Conditions on both observations, interpolation time, endpoint separation and available physical parameters such as Reynolds number.</li>
+<li>Tests Navier–Stokes Kraichnan turbulence, Shanghai radar precipitation and sea-surface temperature against linear, U-Net, optical-flow and diffusion baselines.</li>
+<li>At unseen extrapolative Reynolds number 36,000, reports 10.48% RFNE versus 22.87% for Super SloMo and 25.52% for EDEN.</li>
+<li>An ablation with the same diffusion backbone reports 13.73% RFNE for direct full-field generation, supporting residual learning as the useful component.</li>
+<li>Tests temporal gaps outside the training range and releases the TMLR implementation.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>Peer review, multiple physical datasets, matched-backbone ablations, extrapolative parameter tests and public code support moderate confidence. The turbulence sweep uses only one held-out trajectory per Reynolds number in its main evaluation, and interpolation cannot recover short-lived events absent from both endpoints. Linear interpolation is not proven to be the best reference, diffusion sampling adds cost, and independent reproduction is not yet available.</p>
+<p><span class="paper-label">Read first</span><br>Table 1 for unseen-Reynolds-number performance, Figure 7 for the residual-generation ablation, and Section 6 for the information-theoretic limitation of missing events.</p>
+</article>
+
+<section class="signal-hype" aria-labelledby="signal-hype-title"><h2 id="signal-hype-title">Signal versus hype</h2>
+<p>The durable progress this week is experimental discipline and dependable infrastructure. Neural-operator claims can reverse under modest tuning; theorem-proving workflow gains must survive matched-model, matched-cost baselines; equation discovery benefits from shared representations and exact recovery rules; and external proof search becomes useful only when its output is reconstructed for the Lean kernel. The evidence does <strong>not</strong> show that one neural operator dominates across physics, that a simple proof loop is always optimal, that equation-discovery agents recover new laws reliably from real experiments, or that interpolated scientific fields reveal events unsupported by observations.</p></section>
+
+<nav class="digest-nav" aria-label="Math and AI digest issues"><a href="2026-10-23-math-ai-digest.html">← Previous issue</a><a href="../math-ai.html">All Math &amp; AI issues</a><span aria-current="page">Latest issue</span></nav>
+</main><footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer></body></html>
