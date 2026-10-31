@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numerical Optimization Digest — Issue 10 · 30 October 2026</title>
+<meta name="description" content="Issue 10: two peer-reviewed papers and four arXiv preprints on adaptive minimax steps, cubic regularization, quasi-Newton curvature, Newton–CG, spectral gradients and monotone compositions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site-header"><div class="header-inner">
+  <p class="site-name"><a href="../index.html">Hassan Mohammad</a></p>
+  <nav class="site-nav" aria-label="Primary"><ul>
+    <li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li><li><a href="../cv.html">CV</a></li>
+    <li><a href="../people.html">People</a></li><li><a href="../news.html" class="active">News</a></li>
+    <li><a href="../math-ai.html">Math &amp; AI</a></li>
+    <li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+  </ul></nav>
+</div></header>
+<main class="digest-article">
+<p class="eyebrow">Numerical Optimization Digest · Issue 10</p>
+<h1>Certified quasi-Newton curvature, tensor-free Newton complexity, and monotone compositions</h1>
+<div class="article-meta">Issue date <time datetime="2026-10-30">30 October 2026</time> · Backfilled <time datetime="2026-10-31">31 October 2026</time> · Curated by Hassan Mohammad</div>
+<p class="coverage">Coverage: first-online publisher dates and initial arXiv submission dates recorded as 23–29 October 2026. Dates follow the primary records (arXiv submission dates use UTC); the Friday issue is dated in Korea time. Two peer-reviewed papers and four arXiv preprints are ranked independently below. Earlier published issues were checked for duplication.</p>
+<aside class="category-note"><strong>Archive gap.</strong> The 23 October issue remains absent. This backfill covers only 23–29 October; it does not silently incorporate the missing 16–22 October week. Issue numbers count available published issues, so the preceding available issue is Issue 9 (16 October).</aside>
+<section class="digest-section" aria-labelledby="peer-heading"><h2 id="peer-heading" class="section-title">Peer-reviewed publications</h2>
+<p class="section-intro">Two ranked publisher articles; the first-online date, rather than journal issue date, determines eligibility.</p>
+<article class="paper-entry"><h3>1. AGDA+: Proximal Alternating Gradient Descent Ascent Method with a Nonmonotone Adaptive Step-Size Search for Nonconvex Minimax Problems</h3>
+<p class="paper-byline"><strong>Xuan Zhang, Qiushui Xu and Necdet Serhat Aybat</strong> · SIAM Journal on Optimization · SIAM · First online 29 October 2026 · DOI <a href="https://doi.org/10.1137/24M1692277">10.1137/24M1692277</a> · <a href="https://epubs.siam.org/doi/10.1137/24M1692277">Publisher record ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Line search · nonconvex optimization · primal–dual methods</p>
+<p><span class="paper-label">Why it matters</span><br>An adaptive step-size method for composite nonconvex–strongly concave minimax problems.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul><li>The authors choose nonmonotone primal and dual step sizes through backtracking, without prior knowledge of the global smoothness constant or strong-concavity modulus.</li><li>For a jointly smooth coupling, strongly concave maximization variable, and closed convex regularizers, they establish O(ε⁻²) stationarity iteration complexity; each backtracking iteration uses O(1) gradient calls.</li><li>Numerical experiments support robustness and efficiency. These empirical claims are not a universal runtime guarantee, and strong concavity excludes general nonconvex–nonconcave games.</li></ul></div>
+<p><span class="paper-label">Read first</span><br>Start with the assumptions and AGDA+ step-size search, then the stationarity complexity theorem. The publisher abstract and history verify the summary and first-online date.</p></article>
+<article class="paper-entry"><h3>2. A cubic regularization method for multiobjective optimization</h3>
+<p class="paper-byline"><strong>Douglas S. Gonçalves, Max L. N. Gonçalves and Jefferson G. Melo</strong> · Computational Optimization and Applications · Springer Nature · First online 23 October 2026 · DOI <a href="https://doi.org/10.1007/s10589-026-00847-4">10.1007/s10589-026-00847-4</a> · <a href="https://link.springer.com/article/10.1007/s10589-026-00847-4">Publisher record ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Unconstrained optimization · cubic regularization · convergence rates</p>
+<p><span class="paper-label">Why it matters</span><br>Extends cubic models to multiple objectives with implementable derivative-error controls.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul><li>The authors jointly adjust regularization and derivative accuracy through nonmonotone acceptance, allowing approximate gradients and Hessians.</li><li>With globally Lipschitz component Hessians, a lower-bounded component, and the prescribed inexactness conditions, they obtain O(Cε⁻³ᐟ²) iterations to an approximate Pareto critical point. This counts iterations, not all finite-difference evaluations.</li><li>Under additional local convexity conditions, exact gradients support superlinear convergence and exact first and second derivatives support quadratic convergence. Experiments compare against a safeguarded multiobjective Newton method; they do not establish general Pareto-front recovery.</li></ul></div>
+<p><span class="paper-label">Read first</span><br>Sections 3.1–3.3 for complexity, local assumptions and finite-difference costs; Section 4 for experiments.</p></article>
+</section>
+<section class="digest-section" aria-labelledby="arxiv-heading"><h2 id="arxiv-heading" class="section-title">arXiv preprints</h2>
+<p class="section-intro">Four ranked preprints. These results have not been established here as peer-reviewed publications; claims remain attributable to their authors.</p>
+<article class="paper-entry"><h3>1. Improved Gradient Complexity for Quasi-Newton Proximal Extragradient Methods via Certified Curvature Reuse</h3>
+<p class="paper-byline"><strong>Aryan Mokhtari and Francisco Patitucci</strong> · arXiv:2610.40608 · Initial arXiv submission 29 October 2026 (UTC) · <a href="https://arxiv.org/abs/2610.40608">Primary record ↗</a> · <a href="https://arxiv.org/pdf/2610.40608v1">Paper v1 ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Quasi-Newton · gradient complexity · nonconvex optimization</p>
+<p><span class="paper-label">Why it matters</span><br>Replaces online matrix-learning regret control with a certificate for reused curvature.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul><li>One finite-difference probe refreshes a group of Hessian columns; a path-length certificate controls stale columns. The authors use at most three gradient queries per iteration, plus a regularized solve or trust-region step.</li><li>For convex problems they prove O(min{k⁻², χk⁻³}) objective-error decay. Strongly convex analysis gives an accelerated transient followed by a superlinear upper envelope, with other problem parameters fixed.</li><li>The nonconvex construction gives O(min{χ¹ᐟ³ε⁻³ᐟ², ε⁻⁷ᐟ⁴}) gradient queries. Here χ is a supplied sparsity-coloring dimension, equal to d without structure.</li><li>The bounds require exact gradient queries and stated smoothness, parameter and solve conditions. Known smoothness bounds and an initial-distance bound enter the convex setup; low oracle counts do not remove matrix-storage or linear-algebra costs.</li></ul></div>
+<p><span class="paper-label">Read first</span><br>Assumption 2.1, Theorem 3.5, Theorem 4.2 and Corollary 5.12; then Section 6 on inexact solves.</p></article>
+<article class="paper-entry"><h3>2. Proximal Point Newton Methods for Nonconvex Optimization</h3>
+<p class="paper-byline"><strong>Chang He and Shuzhong Zhang</strong> · arXiv:2610.36256 · Initial arXiv submission 26 October 2026 (UTC) · <a href="https://arxiv.org/abs/2610.36256">Primary record ↗</a> · <a href="https://arxiv.org/pdf/2610.36256v1">Paper v1 ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Newton–CG · unconstrained optimization · second-order stationarity</p>
+<p><span class="paper-label">Why it matters</span><br>Obtains higher-order complexity without explicit derivative tensors.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul><li>For a lower-bounded objective with Lipschitz Hessian, alternating Newton and negative-curvature steps reaches an (εg, εH) second-order stationary point in O(max{εg⁻³ᐟ², εH⁻³}) second-order oracle evaluations.</li><li>Adding Lipschitz continuity of the third derivative yields a tensor-free accelerated method with Õ(max{εg⁻⁴ᐟ³, εH⁻²}) second-order evaluations.</li><li>An adaptive inexact Newton–CG variant avoids prior Lipschitz constants. Under bounded queried Hessians it has Õ(max{εg⁻⁵ᐟ³, εH⁻⁵ᐟ²}) Hessian-vector product complexity with high probability.</li><li>The improved rate still assumes higher-order smoothness. Oracle counts are distinct from total work, Õ hides logarithms, and preliminary experiments do not establish broad solver superiority.</li></ul></div>
+<p><span class="paper-label">Read first</span><br>Assumptions 2.1 and 2.3, the accelerated construction in Section 4 and Newton–CG analysis in Section 5.</p></article>
+<article class="paper-entry"><h3>3. Superlinear Convergence of Cyclic Gradient Methods with Historical Ritz Step Sizes</h3>
+<p class="paper-byline"><strong>Ran Gu</strong> · arXiv:2610.32705 · Initial arXiv submission 23 October 2026 (UTC) · <a href="https://arxiv.org/abs/2610.32705">Primary record ↗</a> · <a href="https://arxiv.org/pdf/2610.32705v1">Paper v1 ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Spectral gradient methods · superlinear convergence · numerical linear algebra</p>
+<p><span class="paper-label">Why it matters</span><br>Analyzes actual delayed iterations rather than relying on a simplified spectral model.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul><li>For strictly convex quadratics with q=m+1 active distinct eigenvalues, the rolling cyclic Ritz rule in the existing LMSDR family has almost-everywhere doubly exponential convergence outside explicit exceptional initial weights.</li><li>Open convergence basins also exist for m+1&lt;q≤2m with repetition count ℓ≥4. The sampled-history variant broadens the sufficient spectral regime under uniform sampling bounds and (2ℓ−1)ᵐ&gt;binomial(q−1,m).</li><li>Sampling updates are included in the cost count. The results concern exact arithmetic and specified spectral regimes; they neither prove general nonlinear superlinearity nor settle almost-everywhere three-dimensional BB1 superlinearity.</li></ul></div>
+<p><span class="paper-label">Read first</span><br>Section 1.3 and Table 1 for scope, Theorem 3.2 for the delayed recurrence, and Section 5 for sampled history.</p></article>
+<article class="paper-entry"><h3>4. Splitting Compositions of Monotone Operators</h3>
+<p class="paper-byline"><strong>Haoming Qu, Yefan Wu and Thomas Chaffey</strong> · arXiv:2610.39480 · Initial arXiv submission 29 October 2026 (UTC) · <a href="https://arxiv.org/abs/2610.39480">Primary record ↗</a> · <a href="https://arxiv.org/pdf/2610.39480v1">Paper v1 ↗</a></p>
+<p><span class="paper-label">Priority topics</span><br>Monotone operator equations · splitting · global linear convergence</p>
+<p><span class="paper-label">Why it matters</span><br>Handles compositions of monotone factors whose composition may fail to be monotone.</p>
+<div class="result-claims"><p><span class="paper-label">Main result claims</span></p><ul><li>For 0∈Hx+A(Bx)−b, introducing y∈Bx leads to triangular warped-resolvent iterations using one H evaluation and ordinary resolvents of A and B.</li><li>Theorem 4.1 certifies global linear convergence and residual error estimates when H is Lipschitz and the explicit two-block gain matrix has spectral radius below one. Sharpness is demonstrated on a linear family.</li><li>For pure compositions, one strongly monotone factor can suffice under the solution-existence and topology conditions of Theorem 5.3. This is weaker than joint contractivity and does not automatically yield the same linear rate for both components.</li><li>Circuit and equilibrium-network examples illustrate the method. Accessible resolvents and the gain condition remain practical restrictions; maximal monotonicity alone does not imply general convergence.</li></ul></div>
+<p><span class="paper-label">Read first</span><br>Algorithm 3.1 and Theorem 4.1; compare Theorems 5.1 and 5.3 before interpreting the one-factor result.</p></article>
+</section>
+<aside class="category-note"><strong>Google Scholar screen.</strong> Four recommendation emails received in the 23–29 October Korea-time window were read, alongside the relevant Frank E. Curtis author alert. No recommendation supplied a selected date-eligible item. The Lanczos–Newton paper <a href="https://arxiv.org/abs/2610.31110">2610.31110</a> was initially submitted on 22 October; <a href="https://arxiv.org/abs/2610.25473">generalized conditional-gradient acceleration</a> on 18 October; and <a href="https://arxiv.org/abs/2610.26546">gradient-restart counterexamples</a> on 19 October. The recommended <a href="https://onlinelibrary.wiley.com/doi/10.1002/mana.70289">inertial extragradient paper</a> was first published on 21 October. These earlier dates are not replaced by the email receipt dates. The noisy gradient-sampling alert linked an older manuscript; no eligible first-online publisher record was verified for it. Other recommendations did not clear the methodological or source-verification threshold.</aside>
+<p class="editorial-note"><strong>Publisher and topic screen.</strong> Springer Nature and SIAM supplied the selected publisher papers. Searches also covered Elsevier, Taylor &amp; Francis and Wiley; no additional sufficiently substantive article with a verified first-online date in this window was selected. This is a selective screen, not an exhaustive publisher census. No qualifying nonlinear least-squares, logistic-regression or new nonlinear conjugate-gradient paper was selected; no section was padded.</p>
+<p class="editorial-note"><strong>Reading order.</strong> Start with certified curvature reuse for quasi-Newton research, then proximal point Newton for Newton–CG complexity. Read the Ritz paper for the precise limits of spectral-gradient superlinearity. For implementation, compare AGDA+ with your line-search workflow and examine the actual solve costs behind every oracle bound.</p>
+<p class="editorial-note">Main-result claims are attributed to the authors. Theorems, numerical evidence and limitations are distinguished; inclusion is not an independent proof check or a solver benchmark. Sources were checked during the 31 October backfill.</p>
+<nav class="digest-nav" aria-label="Digest issues"><a href="2026-10-16-numerical-optimization-digest.html">← Issue 9 · 16 October</a><a href="../news.html">All issues</a><span aria-current="page">Latest issue</span></nav>
+</main>
+<footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer>
+</body>
+</html>
