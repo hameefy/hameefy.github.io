@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathematics &amp; AI Digest — 6 November 2026</title>
+<meta name="description" content="Math and AI digest: learned multigrid coarse spaces, boundary-consistent operator inference, proof-producing SMT, and recoverability-guided mathematical reasoning.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head><body>
+<header class="site-header"><div class="header-inner">
+<p class="site-name"><a href="../index.html">Hassan Mohammad</a></p>
+<nav class="site-nav" aria-label="Primary"><ul>
+<li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li><li><a href="../cv.html">CV</a></li><li><a href="../people.html">People</a></li><li><a href="../news.html">News</a></li><li><a href="../math-ai.html" class="active">Math &amp; AI</a></li><li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li><li><a href="../contact.html">Contact</a></li>
+</ul></nav></div></header>
+<main class="digest-article">
+<p class="eyebrow">Mathematics &amp; Artificial Intelligence · Issue 8</p>
+<h1>Learned coarse spaces, boundary-consistent reduced models and proof-producing verification</h1>
+<div class="article-meta">Published <time datetime="2026-11-06">6 November 2026</time> · Curated by Hassan Mohammad</div>
+<p class="coverage">Coverage: substantive releases from 30 October–5 November 2026. Four developments met the threshold. This was a strong week for hybrid numerical methodology and inspectable verification infrastructure: learning is most convincing when it predicts a mathematically constrained component inside a classical solver, while reasoning-system gains remain smaller and less reproducible.</p>
+
+<section class="reading-order" aria-labelledby="reading-order-title"><h2 id="reading-order-title">Reading order</h2><ol>
+<li><a href="#coarse-spaces">Learning Coarse Spaces for Two-Grid Methods</a> — strongest numerical-method contribution.</li>
+<li><a href="#operator-inference">To lift or not to lift</a> — clearest reduced-order modeling result.</li>
+<li><a href="#sundance">Sundance</a> — strongest software and proof-artifact contribution.</li>
+<li><a href="#resi-math">ReSI-Math</a> — promising reasoning-training study with modest gains.</li>
+</ol></section>
+
+<article class="paper-entry" id="coarse-spaces">
+<div class="entry-kicker">Numerical linear algebra · Strong theory and controlled computational evidence · Read first</div>
+<h2>1. Learning Coarse Spaces for Two-Grid Methods from Smoothed Errors with Applications to High-Contrast Porous Media Flow</h2>
+<p class="paper-byline"><strong>Chenglong Bao, Chen Cui and Ruohua Li</strong> · arXiv · 4 November 2026 · Research paper and software artifact · <a href="https://arxiv.org/abs/2611.05837" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/cuichen1996/ROM-TG" target="_blank" rel="noopener">Code and proofs ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Robust multilevel solvers for high-contrast media depend on coarse spaces that capture error components left behind by local smoothing. This work learns that solver-specific subspace directly, rather than learning the PDE solution map, and keeps FGMRES, finite-volume operators and local Schwarz solves explicit.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Builds training snapshots from errors remaining after a fixed number of additive-Schwarz smoothing steps, then defines reference coarse spaces by POD in the discrete energy inner product.</li>
+<li>Introduces a basis-invariant whitened subspace loss, so training targets the span of a coarse basis rather than an arbitrary choice of basis vectors.</li>
+<li>Uses a continuous-coordinate generator to predict parameter-adaptive coarse spaces across discretizations, including grids substantially finer than those used for training.</li>
+<li>Proves perturbation estimates for nonsymmetric two-grid operators and conditional finite-step Krylov residual-polynomial bounds without assuming stationary energy contraction.</li>
+<li>Tests static-interface, moving-interface Darcy and nonlinear Forchheimer cases; on the finest reported moving-interface grid, a learned 15-dimensional space requires 20.88±0.60 FGMRES updates versus 19.12±0.60 for GenEO with an average dimension near 406.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The artifact is unusually inspectable: configurations, tests, reference summaries, reproduction instructions, an experiment-to-code map and pinned Lean sources are public. The numerical study includes POD, global POD, GenEO and DeepONet-style baselines, loss ablations and cross-grid tests. Still, the experiments are confined to two-dimensional porous-media-type problems; large projector distances can coexist with acceptable iteration counts; and the formalization covers stated algebraic assumptions, not floating-point implementations or empirical convergence. No independent reproduction is available.</p>
+<p><span class="paper-label">Read first</span><br>Algorithm 2 for the training pipeline, Table 2 for cross-grid FGMRES results, Table 5 for nonlinear Forchheimer transfer, and Appendix C for the subspace-loss ablation. In the repository, begin with <code>docs/reproduction.md</code> and <code>docs/paper_map.md</code>.</p>
+</article>
+
+<article class="paper-entry" id="operator-inference">
+<div class="entry-kicker">Reduced-order modeling · Strong formulation and controlled numerics</div>
+<h2>2. To lift or not to lift: Operator inference for nonlinear PDEs with boundary control</h2>
+<p class="paper-byline"><strong>Zhuoyuan Wang, Yorie Nakahira, Wael H. Ali and Saviz Mowlavi</strong> · arXiv · 4 November 2026 · Research paper · <a href="https://arxiv.org/abs/2611.06665" target="_blank" rel="noopener">Paper ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Data-driven reduced models often violate time-dependent boundary conditions even when their interior trajectories look plausible. Lifting separates the exactly known boundary response from a homogeneous reduced state, giving operator inference a clean route to boundary-consistent heat, flow and transport surrogates.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Decomposes the full state into a known boundary-satisfying lift and a homogeneous component represented in a POD basis.</li>
+<li>Shows that substituting the lift into a quadratic PDE produces the bilinear state–input and quadratic input–input terms required by the reduced model.</li>
+<li>Derives a nonintrusive operator-inference problem whose reconstructed state satisfies the prescribed boundary condition by construction.</li>
+<li>Compares lifted and original operator inference, with intrusive and physics-informed variants, on boundary-actuated heat, Burgers and lid-driven-cavity problems.</li>
+<li>Documents the important negative result that lifting is not uniformly preferable: ordinary operator inference may suffice when trajectory prediction matters more than exact boundary consistency.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The three PDE studies include multiple reduced dimensions, regularization sweeps and failure-rate reporting rather than only best-case errors. The benefit is clearest near controlled boundaries, but stability remains fragile: in the heat example, lifted-model failure rates rise from 20% to 80% as POD dimension increases from six to eight, compared with 40% to 100% for the original method. No method-specific reproduction repository or independent validation was identified, and the conclusions may not transfer beyond the tested boundary controls and quadratic formulations.</p>
+<p><span class="paper-label">Read first</span><br>The derivation surrounding Equation 25 and Remark 3, Tables 1–3 for accuracy and failure rates, and Figure 10 for spatial error near the controlled cavity boundary.</p>
+</article>
+
+<article class="paper-entry" id="sundance">
+<div class="entry-kicker">Formal verification software · Strong artifact evidence</div>
+<h2>3. Sundance: A Simple SMT Solver for Program Verification</h2>
+<p class="paper-byline"><strong>Amar Shah, Benjamin F. Jones, Can Cebeci, Jason Z. S. Hu, Lee A. Barnett, Rémi Delmas, Marijn Heule, Bryan Parno and Bruno Dutertre</strong> · arXiv · 3 November 2026 · Technical report and software release · <a href="https://arxiv.org/abs/2611.05668" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/yaspar-org/Sundance-SMT" target="_blank" rel="noopener">Repository ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>SMT solvers are increasingly the hidden trust and search layer beneath proof assistants, program verifiers and generated-proof workflows. Sundance asks whether a compact, inspectable solver specialized for verification can remain competitive while producing proof artifacts for unsatisfiable queries.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Implements a roughly 13,600-line Rust solver combining CaDiCaL, congruence closure, linear arithmetic, algebraic datatypes and pattern-based quantifier instantiation.</li>
+<li>Produces an eDRAT proof for each unsatisfiable result, connecting solver search to a separately checkable artifact.</li>
+<li>Evaluates 21,531 queries drawn from Verus, Dafny and F* rather than relying on a single verification ecosystem.</li>
+<li>Reports competitive aggregate coverage but substantial suite dependence: on the DICE* subset Sundance solves 25.6% versus Z3’s 96.8%, while its overall F* rate of 56.7% lies between cvc5 at 54.9% and Alt-Ergo at 59.3%.</li>
+<li>Uses component-swap ablations to show that replacing individual default modules reduces solved-query count, while retaining a codebase reported to be 26–38 times smaller than Z3 or cvc5.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The public Rust implementation and broad cross-framework corpus make this a credible software result, and a held-out evaluation reduces concern that the 2,576-query Verus development set merely tuned to the final benchmark. However, Sundance is not uniformly competitive, timeout choices and portfolio effects matter, and the Valido checker was still being open-sourced at publication. Some theory lemmas are validated with external SMT solvers, so the advertised proof pipeline is not yet a wholly self-contained independently reproduced trust chain.</p>
+<p><span class="paper-label">Read first</span><br>Section 8 and Figures 5–6 for matched evaluation and ablations, Section 9 for proof production, then the repository’s proof-checking and benchmark instructions.</p>
+</article>
+
+<article class="paper-entry" id="resi-math">
+<div class="entry-kicker">Mathematical reasoning · Promising controlled method, modest effect</div>
+<h2>4. ReSI-Math: Exploring Recoverable Capability Frontiers for Efficient Reasoning Improvement</h2>
+<p class="paper-byline"><strong>Yao Cui, Zhen Yang, Yuandong Wang, Yangfu Zhu, Tianyu Wo and Zhenzhou Shao</strong> · arXiv · 3 November 2026 · Research paper · <a href="https://arxiv.org/abs/2611.04787" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://cnu-bot-group.github.io/ReSI-Math/" target="_blank" rel="noopener">Project page ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Reasoning fine-tuning is expensive when examples are selected by difficulty alone. ReSI-Math instead searches for failed problems whose correct solutions appear recoverable from the model’s own trajectories, then concentrates reinforcement learning on that empirical frontier.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Uses a separately trained self-judge and evolutionary trajectory crossover to identify failed mathematical problems that can yield verifier-confirmed correct offspring.</li>
+<li>Recovers 272 correct offspring from 621 crossover attempts, an author-reported 43.8% yield, and uses those outcomes to define a recoverability-based training frontier.</li>
+<li>Applies policy-adaptive one-problem sequential RL with verifiable rewards to Qwen3-VL-8B rather than collecting a large static curriculum.</li>
+<li>Across three sequential stages, raises the reported MATH500/WE-MATH average from 78.71 to 80.16 while monitoring changes in judge behavior.</li>
+<li>Includes a matched single-problem selection ablation: the frontier-selected problem reaches 54.16 overall versus 53.31 for a random problem, a modest 0.85-point advantage.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The crossover accounting, sequential traces and selection ablation are useful controls, but “capability frontier” is an operational construct rather than a demonstrated intrinsic boundary. Results center on the Qwen3-VL family and mathematical benchmarks; solver and judge are optimized separately; the deterministic verifier has no independent validation; and no public implementation was identified. The effect is directionally interesting but too small and narrow to support claims of a generally efficient reasoning curriculum.</p>
+<p><span class="paper-label">Read first</span><br>Table 3 for the matched selection ablation, Figure 3 for sequential policy dynamics, and Table 6 plus the verifier description before accepting the headline frontier claim.</p>
+</article>
+
+<section class="signal-hype" aria-labelledby="signal-hype-title"><h2 id="signal-hype-title">Signal versus hype</h2>
+<p>The strongest evidence favors hybrid systems with explicit numerical or logical structure: learned coarse spaces inside FGMRES, analytic boundary lifts inside operator inference, and proof-producing search inside a compact SMT solver. These results improve identifiable components while preserving classical residual checks, boundary constraints or proof artifacts. They do <strong>not</strong> establish that learned preconditioners generalize across PDE classes, that lifting always improves reduced models, that a small SMT solver dominates mature engines, or that recoverability-guided RL reveals a universal mathematical-reasoning frontier.</p></section>
+
+<nav class="digest-nav" aria-label="Math and AI digest issues"><a href="2026-10-30-math-ai-digest.html">← Previous issue</a><a href="../math-ai.html">All Math &amp; AI issues</a><span aria-current="page">Latest issue</span></nav>
+</main><footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer></body></html>
