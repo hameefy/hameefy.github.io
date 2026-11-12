@@ -8,13 +8,16 @@ expanded academic structure (Home, Publications, People, News, Math & AI, Projec
 
 ```
 index.html          Home — bio, positions, education, service
-publications.html   All 38 publications (2015–2026), from your CV
+cv.html             Public CV (one self-contained page exported from Claude Design; no PDF)
+publications.html   All 38 published papers (2015–2026) plus accepted and under-review manuscripts
 people.html         Students supervised, examinerships, collaborators
 news.html           Index of the Computational Mathematics Research Digest
 news/               Permanent pages for individual weekly digest issues
 math-ai.html         Index of the weekly Mathematics & Artificial Intelligence Digest
 math-ai/             Permanent Math & AI issues plus the reusable issue template
-projects.html       CodeLaTeX, claude-latex-skill, outreach/video content
+projects.html       CVCode, CodeLaTeX, claude-latex-skill, outreach/video content, AI-tools workshop
+artifacts.html      Interactive Claude artifacts
+publishers-ai-policy.html  Publishers' AI-policy decks (decks/ holds the PDFs)
 contact.html        Emails, offices, ORCID/Scopus/WoS/Scholar, social links
 style.css           All styling (one shared stylesheet)
 assets/hassan.jpg   Your portrait, cropped square from the uploaded photo
@@ -32,8 +35,9 @@ Everything on the site is now sourced from your CV (March 2026) or from things y
   numbers, and your referees' personal contact details are in the CV but not published anywhere on
   the site. Say the word if you'd like your own mobile number added to Contact — everything else I'd
   leave off by default.
-- **The CV stays private** — no PDF is linked or included in this site, and there's no "Download CV"
-  button. If that changes later, just ask and I'll build a public-safe version.
+- **The CV is public, in a privacy-trimmed form** — `cv.html` has no date of birth, marital status,
+  nationality, mobile numbers or referee contact details, and there is no PDF or "Download CV" button.
+  To update it, replace `cv.html` with a fresh export.
 
 Smaller open items:
 - **news.html** now indexes the weekly Computational Mathematics Research Digest. Each issue has a
