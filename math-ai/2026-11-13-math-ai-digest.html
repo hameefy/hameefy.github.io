@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathematics &amp; AI Digest — 13 November 2026</title>
+<meta name="description" content="Math and AI digest: interpretable Lean-guided discovery, learned sparse-solver dispatch, multifidelity operator inference, spectral-bias analysis, and LeanDojo-v2.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head><body>
+<header class="site-header"><div class="header-inner">
+<p class="site-name"><a href="../index.html">Hassan Mohammad</a></p>
+<nav class="site-nav" aria-label="Primary"><ul>
+<li><a href="../index.html">Home</a></li><li><a href="../publications.html">Publications</a></li><li><a href="../cv.html">CV</a></li><li><a href="../people.html">People</a></li><li><a href="../news.html">News</a></li><li><a href="../math-ai.html" class="active">Math &amp; AI</a></li><li><a href="../projects.html">Projects</a></li><li><a href="../artifacts.html">Artifacts</a></li><li><a href="../contact.html">Contact</a></li>
+</ul></nav></div></header>
+<main class="digest-article">
+<p class="eyebrow">Mathematics &amp; Artificial Intelligence · Issue 9</p>
+<h1>Interpretable proof refinement, learned solver dispatch and data-efficient reduced models</h1>
+<div class="article-meta">Published <time datetime="2026-11-13">13 November 2026</time> · Curated by Hassan Mohammad</div>
+<p class="coverage">Coverage: substantive releases from 6–12 November 2026. Five developments met the threshold. The week’s strongest signal is that AI becomes more credible when its search space is structured by inspectable proof dependencies, solver timing data or variance-reduction theory. The most consequential results improve a narrow mathematical or computational component and retain independent numerical or kernel-level checks.</p>
+
+<section class="reading-order" aria-labelledby="reading-order-title"><h2 id="reading-order-title">Reading order</h2><ol>
+<li><a href="#proof-refinement">Improving Analytic Constants via Interpretable AI-Guided Lean Proof Refinement</a> — strongest mathematical-discovery workflow.</li>
+<li><a href="#solver-selection">Learning to Select Sparse Linear Solvers with Convolutional Neural Networks</a> — strongest deployable scientific-computing artifact.</li>
+<li><a href="#mf-opinf">Multifidelity Operator Inference</a> — strongest data-scarce reduced-model method.</li>
+<li><a href="#spectral-bias">Spectral Bias Reduction in Local Gated ReLU Architectures</a> — clearest negative theoretical result.</li>
+<li><a href="#leandojo-v2">LeanDojo-v2</a> — broadest theorem-proving infrastructure release.</li>
+</ol></section>
+
+<article class="paper-entry" id="proof-refinement">
+<div class="entry-kicker">AI-assisted mathematics · Strong methodology, verification caveats · Read first</div>
+<h2>1. Improving Analytic Constants via Interpretable AI-Guided Lean Proof Refinement</h2>
+<p class="paper-byline"><strong>Rahul Saha, Alan Li, Anton Xue, Swarat Chaudhuri, Adam Klivans, Pravesh K. Kothari and Raghu Meka</strong> · arXiv · 7 November 2026 · Research paper and formal artifact · <a href="https://arxiv.org/abs/2611.10961" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/alan2326/proof-refinement" target="_blank" rel="noopener">Code, Lean files and run records ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Most mathematical agents either produce opaque prose or attempt whole proofs. This work instead exposes an existing argument as a partially formalized dependency graph and asks an agent to tighten local inequalities while preserving the proof’s global structure—a more auditable model of AI-assisted mathematical research.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Represents proofs as human-readable Lean blueprints whose definitions, lemmas and final bounds retain an explicit dependency structure during agentic refinement.</li>
+<li>Combines iterative code modification with Lean checking and Arb interval arithmetic, allowing local analytic improvements to propagate to a formally checked end theorem.</li>
+<li>Reports an explicit Grothendieck upper bound smaller than Krivine’s 1977 expression by (10^{-17}), and a Korenblum lower bound of (0.356565), improving the cited 2025 value of (0.3554).</li>
+<li>At a matched single-run budget, the full workflow reduces the Grothendieck intermediate (C_r) from 1 to (2.5	imes10^{-6}); a basic agent reaches (4.0	imes10^{-3}), while removing the blueprint yields no accepted improvement.</li>
+<li>Releases agent definitions, candidates, prompts, Lean formalizations and run records rather than only the final theorem statements.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The kernel-checked dependency structure and interval-arithmetic backend are substantially stronger evidence than an LLM judge. However, each ablation configuration was run once, so no stochastic variance is available. The two Grothendieck chunk-certificate files were not retained and must be regenerated before the oracle stage can be replayed; moreover, the main ablation uses a pre-audit evaluator and should not be read as direct support for the final certified number. The Grothendieck record has also since moved beyond this tiny improvement. No independent reproduction was identified.</p>
+<p><span class="paper-label">Read first</span><br>Section 3’s two case studies, Table 3’s matched-budget ablation, Section 3.4 on reproducibility, and Appendix G’s distinction between the Lean proof and regenerated numerical certificates.</p>
+</article>
+
+<article class="paper-entry" id="solver-selection">
+<div class="entry-kicker">Numerical linear algebra · Strong deployable artifact, narrow evaluation</div>
+<h2>2. Learning to Select Sparse Linear Solvers with Convolutional Neural Networks</h2>
+<p class="paper-byline"><strong>Artemis Pados, Alan Edelman, Emmanuel Lujan, Daniel Pickard, Felipe Tomé and Christopher Rackauckas</strong> · arXiv / IEEE HPEC 2026 · arXiv version published 9 November 2026 · Conference paper and Julia software · <a href="https://arxiv.org/abs/2611.12475" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/SciML/NeuralLinearSolve.jl" target="_blank" rel="noopener">NeuralLinearSolve.jl ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>No direct sparse solver wins on every matrix, yet most scientific-software defaults are fixed. This work turns a matrix’s sparsity pattern into a low-cost dispatch decision among KLU, UMFPACK and MKL Pardiso, packaging the trained selector for ordinary Julia workflows.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Benchmarks three direct solvers on approximately 1,500 square real matrices from SuiteSparse and converts each sparsity pattern into a (64	imes64) binary spy-plot image.</li>
+<li>Regresses log timing ratios relative to KLU rather than only classifying the fastest solver, preserving information about the magnitude of performance differences.</li>
+<li>Achieves 94% fastest-solver accuracy on a random 20% SuiteSparse holdout, compared with 84% from always choosing the majority/default KLU label.</li>
+<li>Reports 99% accuracy on matrices harvested from the separate CHEFSI and ΣMIT high-performance simulation codes.</li>
+<li>Ships frozen weights and a one-call <code>predict_solver</code> interface in the open-source NeuralLinearSolve.jl package.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The external application matrices and usable Julia package make this more than a retrospective classifier experiment. Still, a random matrix-level split may leak family-level structural similarity between training and test sets; the paper reports selection accuracy rather than end-to-end speedup or regret, and evaluates only three direct solvers on one timing environment. Matrix values, conditioning, right-hand-side count, factorization reuse and hardware portability are not represented by the binary spy plot. No independent validation was identified.</p>
+<p><span class="paper-label">Read first</span><br>Section III-B for the log-ratio target, Figure 1 for both confusion matrices, and the repository’s frozen-model and <code>predict_solver_scores</code> paths before considering integration.</p>
+</article>
+
+<article class="paper-entry" id="mf-opinf">
+<div class="entry-kicker">Reduced-order modeling · Strong controlled statistics, preliminary scope</div>
+<h2>3. Multifidelity Operator Inference for Non-intrusive Model Reduction under Data Scarcity</h2>
+<p class="paper-byline"><strong>Vivian Zhang, Tomoki Koike, Atticus Rex and Elizabeth Qian</strong> · arXiv / AIAA SciTech Forum 2027 · 10 November 2026 · Research paper · <a href="https://arxiv.org/abs/2611.13624" target="_blank" rel="noopener">Paper ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Operator inference is attractive for black-box and legacy simulators, but scarce high-fidelity trajectories make fitted reduced operators noisy. MF-OpInf uses cheap coarse simulations as control variates, targeting estimator variance without giving up the polynomial reduced dynamics or requiring intrusive access to the full operator.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Extends multifidelity linear regression to the column-wise estimation of linear–quadratic reduced operators from paired high- and low-fidelity derivative data.</li>
+<li>Constructs an unbiased control-variate estimator and derives coefficients and high/low-fidelity sample allocations under a fixed computational budget.</li>
+<li>Evaluates 1D heat, viscous Burgers and chaotic Kuramoto–Sivashinsky equations using coarse spatial or temporal discretizations as low-fidelity models.</li>
+<li>Uses 100 independently resampled operator fits for each configuration and reports means with standard deviations over reduced dimensions and multiple budgets.</li>
+<li>Finds lower state error across every tested reduced dimension for heat and Burgers, and lower operator error for Kuramoto–Sivashinsky; the largest gains generally occur when high-fidelity budgets are smallest.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>Matched computational budgets, 100 replicates and an explicitly unbiased estimator are strong design choices. The authors also report that absolute heat/Burgers errors are orders of magnitude larger than customary OpInf examples because prediction extrapolates far beyond training. All examples are one-dimensional finite-difference PDEs, the POD basis and correlation/sample-allocation statistics use extensive high-fidelity information, and benefits shrink as retained dimension reduces high/low-fidelity correlation. No public code or independent reproduction was identified.</p>
+<p><span class="paper-label">Read first</span><br>Equations 22–24 for the estimator and allocation rule, Figures 3–4 and 6–7 for low-budget state error, and Figures 11–12 for the chaotic-system operator comparison.</p>
+</article>
+
+<article class="paper-entry" id="spectral-bias">
+<div class="entry-kicker">Scientific-ML analysis · Strong theoretical negative result</div>
+<h2>4. Spectral Bias Reduction in Local Gated ReLU Architectures</h2>
+<p class="paper-byline"><strong>Victorita Dolean</strong> · arXiv · 7 November 2026 · Preliminary research paper · <a href="https://arxiv.org/abs/2611.10700" target="_blank" rel="noopener">Paper ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>Architectural cures for spectral bias are often transferred from function regression to PINNs without checking the loss geometry. This paper shows analytically that a partition-of-unity ReLU construction can flatten learning rates in (L^2), yet fail for the (H^1) energy form relevant to variational PDE training.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Studies shallow ReLU models linear in their trainable coefficients through Gram-matrix spectra for a general symmetric bilinear form.</li>
+<li>Introduces gated local ReLU dictionaries by multiplying features with hat partition-of-unity windows, producing block-banded matrices with a block-Toeplitz interior.</li>
+<li>Uses the matrix-valued symbol of that interior stencil to characterize frequency-dependent learning rates.</li>
+<li>For matched-size (L^2) regression, reduces the measured learning-rate spread from (1.9	imes10^5) to 4.5.</li>
+<li>Proves that for the (H^1) stiffness form the symbol vanishes at zero frequency, leaving (Theta(N^2)) conditioning and reversing—rather than eliminating—the frequency ordering; stencil-based preconditioning is required.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The distinction between (L^2) and (H^1) is mathematically useful and the one-dimensional regression and Poisson experiments agree with the spectral analysis, including when hidden parameters are trained. But the theory is for shallow/localized architectures, the experiments are small and one-dimensional, and the manuscript is explicitly preliminary. No public implementation or independent validation was identified.</p>
+<p><span class="paper-label">Read first</span><br>The block-symbol conditioning results for the (L^2) and (H^1) forms, followed by the matched-model learning-rate table and the Poisson preconditioning experiment.</p>
+</article>
+
+<article class="paper-entry" id="leandojo-v2">
+<div class="entry-kicker">Formal-mathematics software · Strong integration artifact, limited new evaluation</div>
+<h2>5. LeanDojo-v2: A Comprehensive Library for AI-Assisted Theorem Proving in Lean</h2>
+<p class="paper-byline"><strong>Ryan Hsiang, William Adkisson, Robert Joseph George and Anima Anandkumar</strong> · arXiv / NeurIPS Math-AI Workshop · 6 November 2026 · Software and technical report · <a href="https://arxiv.org/abs/2611.09048" target="_blank" rel="noopener">Paper ↗</a> · <a href="https://github.com/lean-dojo/LeanDojo-v2" target="_blank" rel="noopener">Repository ↗</a></p>
+<p><span class="paper-label">Why it matters</span><br>AI theorem-proving experiments frequently assemble incompatible tracing, data, training and Lean-interaction scripts. LeanDojo-v2 consolidates that pipeline, making domain-specific model fine-tuning and prover experimentation more accessible to mathematicians and system builders.</p>
+<div class="result-claims"><p><span class="paper-label">Primary contributions</span></p><ul>
+<li>Unifies Lean-repository tracing, structured theorem databases, dataset management, model training, proof search and external inference behind one modular library.</li>
+<li>Provides supervised, GRPO-style reinforcement and retrieval trainers with LoRA and DeepSpeed support.</li>
+<li>Supplies whole-proof, tactic-search and retrieval provers on Pantograph’s Lean RPC interface.</li>
+<li>Integrates the LeanAgent lifelong-learning workflow and exposes REST-backed model calls for Lean editor tooling.</li>
+<li>Adds Lean4Code, a lightweight interface intended to reduce setup friction for mathematicians using AI-assisted completion and proving.</li>
+</ul></div>
+<p><span class="paper-label">Evidence and caution</span><br>The repository contains modular source, documentation, examples and regression tests, and the underlying components inherit evidence from prior LeanDojo and LeanAgent work. The present report is primarily an integration and usability contribution: it does not establish a new state-of-the-art proof rate through a controlled benchmark, and its many moving dependencies—Lean versions, repositories, CUDA, model APIs and tracing caches—make reproducibility demanding. Independent adoption will matter more than the workshop-paper claims.</p>
+<p><span class="paper-label">Read first</span><br>The repository overview, then <code>lean_dojo_v2/agent/</code>, <code>trainer/</code>, <code>prover/</code> and <code>tests/</code>; use the paper’s system diagram to decide which components are relevant before attempting an end-to-end installation.</p>
+</article>
+
+<section class="signal-hype" aria-labelledby="signal-hype-title"><h2 id="signal-hype-title">Signal versus hype</h2>
+<p>The durable progress is disciplined decomposition. Proof-refinement agents become auditable when they operate on explicit Lean dependency graphs and certified numerical subroutines; solver selection becomes useful when it is packaged against measured runtimes; and multifidelity reduced models become credible when their variance reduction is derived and evaluated under matched budgets. The evidence does <strong>not</strong> establish autonomous discovery of major theorems, portable optimal solver selection across hardware and matrix families, universal benefits from coarse data, an architecture-only cure for PINN spectral bias, or a new theorem-proving state of the art from LeanDojo-v2.</p></section>
+
+<nav class="digest-nav" aria-label="Math and AI digest issues"><a href="2026-11-06-math-ai-digest.html">← Previous issue</a><a href="../math-ai.html">All Math &amp; AI issues</a><span aria-current="page">Latest issue</span></nav>
+</main><footer class="site-footer">© 2026 Hassan Mohammad. Built with plain HTML &amp; CSS, hosted on GitHub Pages.</footer></body></html>
